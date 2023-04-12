@@ -11,7 +11,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
 
 
 
@@ -24,12 +24,12 @@ public class Avis implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "Adherent_Avis_id", foreignKey = @ForeignKey(name = "Adherent_Avis_id_fk"))
-    @Transient
+   
 	private Adherent adherent;
 	@Id
 	@ManyToOne
 	@JoinColumn(name = "Livre_Avis_id", foreignKey = @ForeignKey(name = "Livre_Avis_id_fk"))
-	@Transient
+
 	private Livre livre;
 	@Column(name="livre")
 	private String commentaire;

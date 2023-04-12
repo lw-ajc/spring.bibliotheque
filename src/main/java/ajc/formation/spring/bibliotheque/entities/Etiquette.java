@@ -22,6 +22,7 @@ public class Etiquette {
 	private Etiquette parent;
 	@Transient
 	private Etiquette cadet;
+	//@Transient
 	@ManyToMany(mappedBy = "etiquettes")
 	private Set<Livre> livres = new HashSet();
 	

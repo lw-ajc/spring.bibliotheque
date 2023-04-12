@@ -3,16 +3,14 @@ package ajc.formation.spring.bibliotheque.entities;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.stereotype.Component;
-
-@Component
+@Entity
 @Table(name="adherent")
 public class Adherent implements Utilisateur{
 	@Id
@@ -28,15 +26,15 @@ public class Adherent implements Utilisateur{
 	private String prenom;
 	
 	@Transient
-	@OneToMany(mappedBy = "adherent")
+	//@OneToMany(mappedBy = "adherent")
 	private List<Emprunt> emprunts;
 	
 	@Transient
-	@OneToMany(mappedBy = "adherent")
+	//@OneToMany(mappedBy = "adherent")
 	private List<Livre> favoris;
 	
 	@Transient
-	@OneToMany(mappedBy = "adherent")
+	//@OneToMany(mappedBy = "adherent")
 	private List<Avis> listeAvis;
 	
 	
