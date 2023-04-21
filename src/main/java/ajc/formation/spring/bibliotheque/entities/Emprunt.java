@@ -24,6 +24,8 @@ public class Emprunt {
 	private LocalDate dateDebut;
 	@Column (name="date_fin_emprunt")
 	private LocalDate dateFin;
+	@Column (name="rendu")
+	private boolean rendu;
 	@ManyToOne
 	@JoinColumn(name="id_emprunteur_emprunt", foreignKey = @ForeignKey(name="id_emprunteur_emprunt_fk"))
 	private Adherent emprunteur;
@@ -35,11 +37,12 @@ public class Emprunt {
 		super();
 	}
 
-	public Emprunt(LocalDate dateDebut, LocalDate dateFin, Adherent emprunteur) {
+	public Emprunt(LocalDate dateFin, LocalDate dateDebut, Adherent emprunteur,Livre livre) {
 		super();
-		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
+		this.dateDebut = LocalDate.now();
 		this.emprunteur = emprunteur;
+		this.livre=livre;
 	}
 
 	public Long getId() {
@@ -80,6 +83,15 @@ public class Emprunt {
 
 	public void setLivre(Livre livre) {
 		this.livre = livre;
+	}
+
+
+	public boolean isRendu() {
+		return rendu;
+	}
+
+	public void setRendu(boolean rendu) {
+		this.rendu = rendu;
 	}
 
 	@Override
