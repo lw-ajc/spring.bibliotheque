@@ -43,11 +43,8 @@ public class AdherentService {
 	}
 
 	public void createOrUpdate(Adherent adherent) {
-		if (adherent.getNomUtilisateur() == null || adherent.getNomUtilisateur().isBlank()) {
+		if (adherent.getNom() == null || adherent.getNom().isBlank()) {
 			throw new AdherentException("nom d'utilisateur obligatoire");
-		}
-		if (adherent.getMotDePasse() == null || adherent.getMotDePasse().isBlank()) {
-			throw new AdherentException("mot de passe obligatoire");
 		}
 		adherentRepo.save(adherent);
 	}
