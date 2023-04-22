@@ -15,12 +15,9 @@ public interface EtiquetteRepository extends JpaRepository<Etiquette, String> {
 	@Query("select e from Etiquette e left join fetch e.livres where e.nom=:nom")
 	Optional<Etiquette> findByNomFetchLivres(@Param("nom") String nom);
 	
+	@Query("select e from Etiquette e left join fetch e.enfants where e.nom=:nom")
+	Optional<Etiquette> findByNomFetchEnfants(@Param("nom") String nom);
+	
 	
 
 }
-
-
-//public interface FournisseurRepository extends JpaRepository<Fournisseur, Long> {
-//	@Query("select f from Fournisseur f left join fetch f.produits where f.id=:id")
-//	Optional<Fournisseur> findByIdFetchProduits(@Param("id") Long id);
-//}

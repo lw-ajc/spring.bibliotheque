@@ -5,9 +5,7 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -20,8 +18,7 @@ import javax.persistence.Transient;
 @AttributeOverride(name = "password", column = @Column(name = "adherent_password"))
 @AttributeOverride(name = "role", column = @Column(name = "role"))
 public class Adherent extends Utilisateur{
-	@Transient
-	//@OneToMany(mappedBy = "adherent")
+	@OneToMany(mappedBy = "emprunteur")
 	private List<Emprunt> emprunts;
 	
 	@Transient
@@ -33,7 +30,13 @@ public class Adherent extends Utilisateur{
 	private List<Avis> listeAvis;
 	
 	
-	public Adherent() {		
+	public Adherent() {
+		super();
+	}
+	
+	public Adherent(String nom, String prenom, String login, String password) {
+		super(nom, prenom, login, password);
+		this.setRole(Role.ROLE_ADHERENT);
 	}
 
 	public List<Emprunt> getEmprunts() {

@@ -1,27 +1,19 @@
 package ajc.formation.spring.bibliotheque.entities;
 
-import java.util.Arrays;
-import java.util.Collection;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import javax.persistence.MappedSuperclass;
 
 
 
 @MappedSuperclass
-public class Utilisateur implements UserDetails{
+public class Utilisateur {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -64,6 +56,14 @@ public class Utilisateur implements UserDetails{
 		this.role = null;
 	}
 	
+	public Utilisateur(String nom, String prenom, String login, String password) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.login = login;
+		this.password = password;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -88,44 +88,28 @@ public class Utilisateur implements UserDetails{
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	
-	// Utilisateur
-		// -> admin
-		// -> adhérent
-	
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		//new SimpleGrantedAuthority("ROLE_"+this.getClass().getSimpleName());
-		return Arrays.asList(new SimpleGrantedAuthority(role.toString()));
+	public String getLogin() {
+		return login;
 	}
-
-	@Override
+	public void setLogin(String login) {
+		this.login = login;
+	}
 	public String getPassword() {
 		return password;
 	}
-
-	@Override
-	public String getUsername() {
-		return login;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
+	
+	public void imprimerUtilisateur() {
+		System.out.println("nom :\t" + this.nom +
+				"prénom :\t" + this.prenom +
+				"login :\t" + this.login +
+				"mdp :\t" + this.password +
+				"role :\t" + this.role);
 	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+	
+	
+	
+	
 }

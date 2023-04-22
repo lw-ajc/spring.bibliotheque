@@ -3,9 +3,6 @@ package ajc.formation.spring.bibliotheque.entities;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +20,17 @@ public class Administrateur extends Utilisateur{
 	
 	
 	public Administrateur() {
-		
+		super();
+	}
+	
+	public Administrateur(String nom, String prenom, String login, String password) {
+		super(nom, prenom, login, password);
+		this.setRole(Role.ROLE_ADMIN);
+	}
+	
+	public Administrateur(String nom, String prenom, String login, String password, String adresse) {
+		this(nom, prenom, login, password);
+		this.mail = adresse;
 	}
 	
 

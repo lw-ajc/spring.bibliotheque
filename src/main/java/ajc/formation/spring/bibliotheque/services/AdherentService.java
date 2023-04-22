@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ajc.formation.spring.bibliotheque.entities.Adherent;
 import ajc.formation.spring.bibliotheque.exceptions.AdherentException;
+import ajc.formation.spring.bibliotheque.exceptions.AdministrateurException;
 import ajc.formation.spring.bibliotheque.repositories.AdherentRepository;
 
 
@@ -15,8 +16,7 @@ public class AdherentService {
 	
 	@Autowired
 	private AdherentRepository adherentRepo;
-	// @Autowired
-	// private LivreRepository livreRepo;
+
 	
 	public List<Adherent> getAll() {
 		return adherentRepo.findAll();
@@ -44,10 +44,20 @@ public class AdherentService {
 
 	public void createOrUpdate(Adherent adherent) {
 		if (adherent.getNom() == null || adherent.getNom().isBlank()) {
-			throw new AdherentException("nom d'utilisateur obligatoire");
+			throw new AdherentException("nom obligatoire");
+		}
+		if (adherent.getPrenom() == null || adherent.getPrenom().isBlank()) {
+			throw new AdministrateurException("prénom obligatoire");
+		}
+		if (adherent.getLogin() == null || adherent.getLogin().isBlank()) {
+			throw new AdministrateurException("login obligatoire");
+		}
+		if (adherent.getPassword() == null || adherent.getPassword().isBlank()) {
+			throw new AdministrateurException("mot de passe obligatoire");
 		}
 		adherentRepo.save(adherent);
 	}
+
 	
 	
 	public void emprunterLivre() {

@@ -5,12 +5,15 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +25,10 @@ public class Livre {
 	private int livreId;
 	@Column(name = "titre", nullable = false, length = 255)
 	private String titre;
+	@Column(name = "auteur", nullable = false, length = 255)
+	private String auteur;
 	@Column(name = "statut", nullable = false)
+	@Enumerated(EnumType.STRING)
 	private StatutLivre statut;
 	
 	@ManyToMany
@@ -30,22 +36,23 @@ public class Livre {
 			name = "etiquette_livre",
 			joinColumns = @JoinColumn(name  ="livre_id"),
 			inverseJoinColumns = @JoinColumn(name = "etiquette_id"))
-	Set<Etiquette> etiquettes = new HashSet();
+	Set<Etiquette> etiquettes = new HashSet<Etiquette>();
+	
+	@OneToMany(mappedBy = "livre")
+	Set<Emprunt> emprunts = new HashSet<Emprunt>();
+	
+	//relation favori
+	//relation avis
+		
 
 	public Livre() {
 		super();
 	}
 	
-	public Livre(int livreId, String titre, StatutLivre statut) {
-		super();
-		this.livreId = livreId;
-		this.titre = titre;
-		this.statut = statut;
-	}
-	
-	public Livre(String titre, StatutLivre statut) {
+	public Livre(String titre, String auteur, StatutLivre statut) {
 		super();
 		this.titre = titre;
+		this.auteur = auteur;
 		this.statut = statut;
 	}
 
@@ -75,9 +82,6 @@ public class Livre {
 	
 	
 	
-	//relation favori
-	//relation avis
-	//relation emprunt
 	
 	
 	

@@ -5,32 +5,69 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Table(name = "etiquette")
 @Entity
 public class Etiquette {
 	@Id
 	private String nom;
-	@Transient
+	@ManyToOne
+	@JoinColumn(name = "parent")
 	private Etiquette parent;
-	@Transient
-	private Etiquette cadet;
-	//@Transient
+	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Etiquette> enfants = new HashSet<Etiquette>();
 	@ManyToMany(mappedBy = "etiquettes")
-	private Set<Livre> livres = new HashSet();
+	private Set<Livre> livres = new HashSet<Livre>();
 	
-	
-	
-	
+
 	public Etiquette() {
 		super();
+	}
+	
+	public Etiquette(String nom) {
+		super();
+		this.nom = nom;
+	}
+	
+	public Etiquette(String nom, Etiquette parent) {
+		this(nom);
+		this.parent = parent;
+	}
+	
+	public Etiquette getParent() {
+		return parent;
+	}
+
+	public void setParent(Etiquette parent) {
+		this.parent = parent;
+	}
+	
+
+	public Set<Etiquette> getEnfants() {
+		return enfants;
+	}
+
+	public void setEnfants(Set<Etiquette> enfants) {
+		this.enfants = enfants;
+	}
+	
+	public void addEnfant(Etiquette enfant) {
+		this.enfants.add(enfant);
+	}
+	public void removeEnfant(Etiquette enfant) {
+		this.enfants.remove(enfant);
+	}
+	public boolean removeEnfant(String nomEnfant) {
+		// boucle au ca
+		return this.enfants.remove(new Etiquette(nomEnfant, (Etiquette) null));
 	}
 	
 	public String getNom() {
@@ -39,26 +76,25 @@ public class Etiquette {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public Etiquette getParent() {
-		return parent;
-	}
-	public void setParent(Etiquette parent) {
-		this.parent = parent;
-	}
-	public Etiquette getCadet() {
-		return cadet;
-	}
-	public void setCadet(Etiquette cadet) {
-		this.cadet = cadet;
-	}
+	
 	public Set<Livre> getLivres() {
 		return livres;
 	}
 	public void setLivres(Set<Livre> livres) {
 		this.livres = livres;
 	}
+	
+	
+	public void imprimer() {
+		System.out.println("=============> " + this.nom + "<=============");
+		if (this.parent == null)
+			System.out.println("=============> " + "PAS DE PARENT" + "<=============");
+		else
+			System.out.println("=============> " + this.parent.getNom() + "<=============");
+	}
 	@Override
 	public int hashCode() {
+		// Note : pour ce qui nous concerne, les enfants et le parent ne participent pas à définir l'identité d'une étiquette
 		return Objects.hash(nom);
 	}
 	@Override
@@ -70,8 +106,10 @@ public class Etiquette {
 		if (getClass() != obj.getClass())
 			return false;
 		Etiquette other = (Etiquette) obj;
-		return nom == other.nom;
+		return nom.equals(other.nom);
 	}
+
+
 	
 	
 	

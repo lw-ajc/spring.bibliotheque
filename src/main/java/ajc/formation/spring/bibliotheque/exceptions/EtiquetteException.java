@@ -8,4 +8,14 @@ public class EtiquetteException extends RuntimeException {
 	public EtiquetteException(String message) {
 		super(message);
 	}
+	
+	public static class IdIntrouvable extends EtiquetteException {
+		public IdIntrouvable() {
+			
+		}
+		
+		public IdIntrouvable(String message) {
+			super(message);
+		}
+	}
 }

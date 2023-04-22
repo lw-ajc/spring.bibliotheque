@@ -18,6 +18,12 @@ public interface LivreRepository extends JpaRepository<Livre, Long>{
 	Optional<Livre> findByTitreContaining(@Param("motif") String motif);
 	
 	@Query("select l from Livre l left join fetch l.etiquettes where l.id=:id")
-	Optional<Livre> findByIdFectchEtiquettes(@Param("id") Long id);	
+	Optional<Livre> findByIdFectchEtiquettes(@Param("id") Long id);
+	
+	@Query("select l from Livre l left join fetch l.emprunts where l.id=:id")
+	Optional<Livre> findByIdFectchEmprunts(@Param("id") Long id);
+	
+//	@Query("select l from Livre l left join fetch l.emprunts where l.id=:id")
+//	Optional<Livre> findByIdFectchEmprunts(@Param("id") Long id);	
 
 }
