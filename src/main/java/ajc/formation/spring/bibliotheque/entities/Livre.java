@@ -15,6 +15,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name ="livre")
@@ -27,6 +28,7 @@ public class Livre {
 	private String titre;
 	@Column(name = "auteur", nullable = false, length = 255)
 	private String auteur;
+	
 	@Column(name = "statut", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private StatutLivre statut;
@@ -54,6 +56,12 @@ public class Livre {
 		this.titre = titre;
 		this.auteur = auteur;
 		this.statut = statut;
+	}
+	
+	public Livre(String titre, String auteur) {
+		super();
+		this.titre = titre;
+		this.auteur = auteur;
 	}
 
 	public int getLivreId() {
