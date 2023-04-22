@@ -17,20 +17,28 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
+
 @Entity
 @Table(name ="livre")
 public class Livre {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(JsonViews.Simple.class)
 	private int livreId;
 	@Column(name = "titre", nullable = false, length = 255)
+	@JsonView(JsonViews.Simple.class)
 	private String titre;
 	@Column(name = "auteur", nullable = false, length = 255)
+	@JsonView(JsonViews.Simple.class)
 	private String auteur;
 	
 	@Column(name = "statut", nullable = false)
 	@Enumerated(EnumType.STRING)
+	@JsonView(JsonViews.Simple.class)
 	private StatutLivre statut;
 	
 	@ManyToMany
@@ -86,6 +94,14 @@ public class Livre {
 
 	public void setStatut(StatutLivre statut) {
 		this.statut = statut;
+	}
+
+	public String getAuteur() {
+		return auteur;
+	}
+
+	public void setAuteur(String auteur) {
+		this.auteur = auteur;
 	}
 	
 	
