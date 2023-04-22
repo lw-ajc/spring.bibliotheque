@@ -38,7 +38,7 @@ public class AdherentRestController {
 	}
 
 	@GetMapping("/{id}")
-	@JsonView(JsonViews.Simple.class)
+	@JsonView(JsonViews.AdherentWithLists.class)
 	public Adherent getById(@PathVariable Long id) {
 		Adherent adherent = null;
 		adherent = adherentSrv.getById(id);
@@ -61,6 +61,24 @@ public class AdherentRestController {
 	@JsonView(JsonViews.Simple.class)
 	public Adherent update(@RequestBody Adherent adherent, @PathVariable Long id) {
 		Adherent adherentEnBase = adherentSrv.getById(id);
+		if (adherent.getEmprunts()!= null) {
+			adherentEnBase.setEmprunts(adherent.getEmprunts());
+		}
+		if (adherent.getLogin()!= null) {
+			adherentEnBase.setLogin(adherent.getLogin());
+		}
+		if (adherent.getPassword()!= null) {
+			adherentEnBase.setPassword(adherent.getPassword());
+		}
+		if (adherent.getNom()!= null) {
+			adherentEnBase.setNom(adherent.getNom());
+		}
+		if (adherent.getPrenom()!= null) {
+			adherentEnBase.setPrenom(adherent.getPrenom());
+		}
+		if (adherent.getRole()!= null) {
+			adherentEnBase.setRole(adherent.getRole());
+		}
 		adherentSrv.createOrUpdate(adherentEnBase);
 		return adherentEnBase;
 	}

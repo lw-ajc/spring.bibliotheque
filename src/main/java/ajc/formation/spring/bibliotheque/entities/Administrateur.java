@@ -5,6 +5,10 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
+
 @Entity
 @Table(name="administrateur")
 @AttributeOverride(name = "id", column = @Column(name = "admin_id"))
@@ -16,6 +20,7 @@ import javax.persistence.Table;
 public class Administrateur extends Utilisateur{
 	
 	@Column(name="mail")
+	@JsonView(JsonViews.Simple.class)
 	private String mail;
 	
 	
