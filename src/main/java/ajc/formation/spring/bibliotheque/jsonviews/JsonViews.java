@@ -7,8 +7,15 @@ public class JsonViews {
 
 	}
 
-	// produit avec leur founisseur
 	public static class Emprunt extends Simple {
+
+	}
+	
+	public static class Utilisateur extends Simple {
+
+	}
+	
+	public static class AdherentWithLists extends Utilisateur {
 
 	}
 
