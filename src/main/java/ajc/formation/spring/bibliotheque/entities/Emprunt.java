@@ -13,24 +13,34 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
+
 @Entity
 @Table (name="emprunt")
 public class Emprunt {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name="id_emprunt")
+	@JsonView(JsonViews.Simple.class)
 	private Long id;
 	@Column (name="date_debut_emprunt")
+	@JsonView(JsonViews.Simple.class)
 	private LocalDate dateDebut;
 	@Column (name="date_fin_emprunt")
+	@JsonView(JsonViews.Simple.class)
 	private LocalDate dateFin;
 	@Column (name="rendu")
+	@JsonView(JsonViews.Simple.class)
 	private boolean rendu;
 	@ManyToOne
 	@JoinColumn(name="id_emprunteur_emprunt", foreignKey = @ForeignKey(name="id_emprunteur_emprunt_fk"))
+	@JsonView(JsonViews.Emprunt.class)
 	private Adherent emprunteur;
 	@ManyToOne
 	@JoinColumn(name="id_livre_emprunt", foreignKey = @ForeignKey(name="id_livre_emprunt_fk"))
+	@JsonView(JsonViews.Emprunt.class)
 	private Livre livre;
 	
 	public Emprunt() {
@@ -69,7 +79,7 @@ public class Emprunt {
 		this.dateFin = dateFin;
 	}
 
-	public Utilisateur getEmprunteur() {
+	public Adherent getEmprunteur() {
 		return emprunteur;
 	}
 

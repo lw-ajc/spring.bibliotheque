@@ -25,7 +25,7 @@ public class SecurityConfig {
 //					.antMatchers(HttpMethod.POST,"/api/client/inscription").anonymous()
 //					.antMatchers(HttpMethod.POST, "/api/commande").hasAnyRole("USER")
 //					.antMatchers(HttpMethod.GET).authenticated()
-					.anyRequest().hasAnyRole("ADMIN")
+//					.anyRequest().hasAnyRole("ADMIN")
 				.and()
 				.httpBasic()
 				.and()
