@@ -9,6 +9,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
+
 @Entity
 @Table(name="adherent")
 @AttributeOverride(name = "id", column = @Column(name = "adherent_id"))
@@ -19,14 +23,17 @@ import javax.persistence.Transient;
 @AttributeOverride(name = "role", column = @Column(name = "role"))
 public class Adherent extends Utilisateur{
 	@OneToMany(mappedBy = "emprunteur")
+	@JsonView(JsonViews.AdherentWithLists.class)
 	private List<Emprunt> emprunts;
 	
 	@Transient
-	//@OneToMany(mappedBy = "adherent")
+//	@OneToMany(mappedBy = "adherent")
+//	@JsonView(JsonViews.AdherentWithLists.class)
 	private List<Livre> favoris;
 	
 	@Transient
-	//@OneToMany(mappedBy = "adherent")
+//	@OneToMany(mappedBy = "adherent")
+//	@JsonView(JsonViews.AdherentWithLists.class)
 	private List<Avis> listeAvis;
 	
 	

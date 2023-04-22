@@ -21,7 +21,7 @@ public class AdministrateurTest {
 	@Commit
 	void creerAdmin() {
 		Administrateur admin = new Administrateur();
-		admin = new Administrateur("Coco", "Channel", "truc", "mdp");
+		admin = new Administrateur("Coco", "Channel", "admin", "$10$Bb61fz3Jq6lD9XqHLgYaReUvxA2tiHvtmPoQVZ6HU3JKzZBSmYM1i");
 		adminSrv.createOrUpdate(admin);
 		assertNotNull(admin.getId());
 		

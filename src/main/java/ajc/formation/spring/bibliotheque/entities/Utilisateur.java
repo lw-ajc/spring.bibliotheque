@@ -10,24 +10,33 @@ import javax.persistence.Id;
 
 import javax.persistence.MappedSuperclass;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
+
 
 
 @MappedSuperclass
 public class Utilisateur {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(JsonViews.Simple.class)
 	private Long id;
 	@Column(name = "nom", length = 255)
+	@JsonView(JsonViews.Simple.class)
 	private String nom;
 	@Column(name = "prenom", length = 255)
+	@JsonView(JsonViews.Simple.class)
 	private String prenom;
 	
 	@Column(name = "login", nullable = false, unique = true)
+	@JsonView(JsonViews.Simple.class)
 	private String login;
 	@Column(name = "password", length = 255, nullable = false)
 	private String password;
 	@Column(name = "role", nullable = false)
 	@Enumerated(EnumType.STRING)
+	@JsonView(JsonViews.Utilisateur.class)
 	private Role role;
 	
 	public Utilisateur() {
