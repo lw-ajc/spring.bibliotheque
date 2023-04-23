@@ -23,14 +23,14 @@ public class UtilisateursTest {
 	
 	@Test
 	@Commit
-	void insertTest() {
+	void ajouteAdminAdherent() {
 		Adherent adherent = new Adherent("Gérard", "Bouchard", "gbouchard", "mdp");
 		adherent.imprimerUtilisateur();
 		adherentService.createOrUpdate(adherent);
 		System.out.println(adherent.getNom());
 		assertNotNull(adherent.getId());
 		
-		Administrateur administrateur = new Administrateur("Gérard", "Bouchard", "gbouchard", "mdp");
+		Administrateur administrateur = new Administrateur("admin", "admin", "admin", "$10$Bb61fz3Jq6lD9XqHLgYaReUvxA2tiHvtmPoQVZ6HU3JKzZBSmYM1i");
 		adminSrv.createOrUpdate(administrateur);
 		assertNotNull(administrateur.getId());
 	}

@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import ajc.formation.spring.bibliotheque.entities.Administrateur;
 import ajc.formation.spring.bibliotheque.exceptions.AdministrateurException;
@@ -13,6 +15,8 @@ import ajc.formation.spring.bibliotheque.repositories.AdministrateurRepository;
 public class AdministrateurService {
 	@Autowired
 	private AdministrateurRepository administrateurRepo;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	// @Autowired
 	// private LivreRepository livreRepo;
 	
@@ -39,19 +43,20 @@ public class AdministrateurService {
 		administrateurRepo.deleteById(id);
 	}
 
-	public void createOrUpdate(Administrateur adherent) {
-		if (adherent.getNom() == null || adherent.getNom().isBlank()) {
+	public void createOrUpdate(Administrateur administrateur) {
+		if (administrateur.getNom() == null || administrateur.getNom().isBlank()) {
 			throw new AdministrateurException("nom d'utilisateur obligatoire");
 		}
-		if (adherent.getPrenom() == null || adherent.getPrenom().isBlank()) {
+		if (administrateur.getPrenom() == null || administrateur.getPrenom().isBlank()) {
 			throw new AdministrateurException("mot de passe obligatoire");
 		}
-		if (adherent.getLogin() == null || adherent.getLogin().isBlank()) {
+		if (administrateur.getLogin() == null || administrateur.getLogin().isBlank()) {
 			throw new AdministrateurException("login obligatoire");
 		}
-		if (adherent.getPassword() == null || adherent.getPassword().isBlank()) {
+		if (administrateur.getPassword() == null || administrateur.getPassword().isBlank()) {
 			throw new AdministrateurException("mot de passe obligatoire");
 		}
-		administrateurRepo.save(adherent);
+		administrateur.setPassword(passwordEncoder.encode(administrateur.getPassword()));
+		administrateurRepo.save(administrateur);
 	}
 }
