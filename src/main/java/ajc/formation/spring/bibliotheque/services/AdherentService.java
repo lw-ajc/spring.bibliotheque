@@ -1,6 +1,7 @@
 package ajc.formation.spring.bibliotheque.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ public class AdherentService {
 		if (id == null) {
 			throw new AdherentException("id obligatoire");
 		}
+		//Optional<Adherent> adherent = adherentRepo.findById(id);
 		return adherentRepo.findById(id).orElseThrow(() -> {
 			throw new AdherentException("id inconnu");
 		});

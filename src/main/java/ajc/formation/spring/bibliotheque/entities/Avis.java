@@ -2,6 +2,7 @@ package ajc.formation.spring.bibliotheque.entities;
 
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,19 +23,23 @@ import javax.persistence.Table;
 @IdClass(AvisId.class)
 public class Avis implements Serializable {
     @Id
-    @ManyToOne
-    @JoinColumn(name = "Adherent_Avis_id", foreignKey = @ForeignKey(name = "Adherent_Avis_id_fk"))
-   
-	private Adherent adherent;
+    //@ManyToOne
+    //@JoinColumn(name = "Adherent_Avis_id", foreignKey = @ForeignKey(name = "Adherent_Avis_id_fk"))
+	private Long adherentId;
 	@Id
-	@ManyToOne
-	@JoinColumn(name = "Livre_Avis_id", foreignKey = @ForeignKey(name = "Livre_Avis_id_fk"))
-
-	private Livre livre;
+//	@ManyToOne
+//	@JoinColumn(name = "Livre_Avis_id", foreignKey = @ForeignKey(name = "Livre_Avis_id_fk"))
+	private Long livreId;
+	
+	
 	@Column(name="livre")
 	private String commentaire;
 	private int note;
 	
+	public Avis() {
+		super();
+	}
+
 	
 	public Avis(String commentaire, int note) {
 		super();
@@ -43,8 +48,14 @@ public class Avis implements Serializable {
 	}
 
 
-	public Avis() {
+	
+
+	public Avis(Long adherentId, Long livreId, String commentaire, int note) {
 		super();
+		this.adherentId = adherentId;
+		this.livreId = livreId;
+		this.commentaire = commentaire;
+		this.note = note;
 	}
 
 
@@ -58,31 +69,27 @@ public class Avis implements Serializable {
 	}
 
 
-	public Adherent getAdherent() {
-		return adherent;
-		
-		
+
+	public Long getAdherentId() {
+		return adherentId;
 	}
 
 
-	public void setAdherent(Adherent adherent) {
-		this.adherent = adherent;
-		
-		
-		
+	public void setAdherentId(Long adherentId) {
+		this.adherentId = adherentId;
 	}
 
 
-	public Livre getLivre() {
-		return livre;
+	public Long getLivreId() {
+		return livreId;
 	}
 
 
-	public void setLivre(Livre livre) {
-		this.livre = livre;
+	public void setLivreId(Long livreId) {
+		this.livreId = livreId;
 	}
 
-	
+
 	public int getNote() {
 		return note;
 	}
@@ -90,6 +97,25 @@ public class Avis implements Serializable {
 	
 	public void setNote(int note) {
 		this.note = note;
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(adherentId, livreId);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Avis other = (Avis) obj;
+		return Objects.equals(adherentId, other.adherentId) && Objects.equals(livreId, other.livreId);
 	}
 	
 	

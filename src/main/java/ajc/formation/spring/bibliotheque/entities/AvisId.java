@@ -4,30 +4,51 @@ import java.io.Serializable;
 
 
 public class AvisId implements Serializable{
-	private Adherent adherent;
-	private Livre livre;
+	private Long adherentId;
+	private Long livreId;
 	
 	
 	
 	public AvisId() {
 		super();
 	}
-	public AvisId(Adherent adherent, Livre livre) {
+
+
+
+	public AvisId(Long adherentId, Long livreId) {
 		super();
-		this.adherent = adherent;
-		this.livre = livre;
+		this.adherentId = adherentId;
+		this.livreId = livreId;
 	}
-	public Adherent getAdherent() {
-		return adherent;
+	
+	public AvisId(Long adherentId, int livreId) {
+		super();
+		this.adherentId = adherentId;
+		this.livreId = Long.valueOf(livreId);
 	}
-	public void setAdherent(Adherent adherent) {
-		this.adherent = adherent;
+
+
+
+	public Long getAdherentId() {
+		return adherentId;
 	}
-	public Livre getLivre() {
-		return livre;
+
+
+
+	public void setAdherentId(Long adherentId) {
+		this.adherentId = adherentId;
 	}
-	public void setLivre(Livre livre) {
-		this.livre = livre;
+
+
+
+	public Long getLivreId() {
+		return livreId;
+	}
+
+
+
+	public void setLivreId(Long livreId) {
+		this.livreId = livreId;
 	}
 	
 	
