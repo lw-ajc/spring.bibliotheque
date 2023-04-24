@@ -9,6 +9,7 @@ import org.springframework.test.annotation.Commit;
 
 import ajc.formation.spring.bibliotheque.entities.Livre;
 import ajc.formation.spring.bibliotheque.entities.StatutLivre;
+import ajc.formation.spring.bibliotheque.services.EtiquetteService;
 import ajc.formation.spring.bibliotheque.services.LivreService;
 
 @SpringBootTest
@@ -16,6 +17,8 @@ public class LivreTest {
 	
 	@Autowired
 	LivreService livreServ;
+	@Autowired
+	EtiquetteService etiqServ;
 	
 	@Test
 	@Commit
@@ -24,6 +27,12 @@ public class LivreTest {
 		livre.setStatut(StatutLivre.DISPONIBLE);
 		livreServ.createOrUpdate(livre);
 		assertNotNull(livre.getLivreId());
+		
+		livreServ.createOrUpdate(new Livre("La cousine Bette", "Balzac", StatutLivre.DISPONIBLE));
+		livreServ.createOrUpdate(livre);
+
+
+		
 	}
 	
 //	@Test
