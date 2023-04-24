@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ajc.formation.spring.bibliotheque.entities.Adherent;
 import ajc.formation.spring.bibliotheque.entities.Emprunt;
 import ajc.formation.spring.bibliotheque.exceptions.EmpruntException;
 import ajc.formation.spring.bibliotheque.repositories.EmpruntRepository;
@@ -36,8 +37,13 @@ public class EmpruntService {
 		empruntRepo.delete(getById(id));
 	}
 	
+	public void deleteByEmprunteur (Adherent emprunteur) {
+		empruntRepo.deleteByEmprunteur(emprunteur);
+	}
+	
 	
 	public void createOrUpdate(Emprunt emprunt) {
+		//TODO valider un emprunt seulement si le livre est disponible
 //		if (emprunt.getLivre()==null) {
 //			throw new EmpruntException("Un livre doit être renseigné pour créer l'emprunt");
 //		}

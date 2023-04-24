@@ -9,13 +9,9 @@ import org.springframework.data.repository.query.Param;
 
 import ajc.formation.spring.bibliotheque.entities.Livre;
 
-public interface LivreRepository extends JpaRepository<Livre, Long>{
+public interface LivreRepository extends JpaRepository<Livre, Integer>{
 	
-	List<Livre> findByTitre(String titre);
-	
-	//TODO vérifier si ça marcher
-	@Query("select l from Livre l where l.titre like '%:motif%'")
-	Optional<Livre> findByTitreContaining(@Param("motif") String motif);
+	List<Livre> findByTitreContaining(String titre);
 	
 	@Query("select l from Livre l left join fetch l.etiquettes where l.id=:id")
 	Optional<Livre> findByIdFectchEtiquettes(@Param("id") Long id);
@@ -23,7 +19,4 @@ public interface LivreRepository extends JpaRepository<Livre, Long>{
 	@Query("select l from Livre l left join fetch l.emprunts where l.id=:id")
 	Optional<Livre> findByIdFectchEmprunts(@Param("id") Long id);
 	
-//	@Query("select l from Livre l left join fetch l.emprunts where l.id=:id")
-//	Optional<Livre> findByIdFectchEmprunts(@Param("id") Long id);	
-
 }

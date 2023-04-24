@@ -45,7 +45,7 @@ public class AvisService {
 		});
 	}
 	public Avis getByLivre(Livre livre) {
-		return getByLivreId(Long.valueOf(livre.getLivreId()));
+		return getByLivreId(Long.valueOf(livre.getId()));
 	}
 	
 	public void deleteAll() {

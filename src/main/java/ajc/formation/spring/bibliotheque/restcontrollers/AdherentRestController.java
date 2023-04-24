@@ -35,7 +35,6 @@ public class AdherentRestController {
 
 	@GetMapping("")
 	@JsonView(JsonViews.Simple.class)
-//	@JsonView(JsonViews.UtilisateurWithMdp.class)
 	public List<Adherent> getAll() {
 		return adherentSrv.getAll();
 	}

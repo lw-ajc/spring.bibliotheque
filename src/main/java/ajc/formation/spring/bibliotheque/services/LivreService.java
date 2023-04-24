@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ajc.formation.spring.bibliotheque.entities.Livre;
 import ajc.formation.spring.bibliotheque.exceptions.LivreException;
+import ajc.formation.spring.bibliotheque.repositories.EmpruntRepository;
 import ajc.formation.spring.bibliotheque.repositories.LivreRepository;
 
 
@@ -20,12 +21,14 @@ public class LivreService {
 	
 	@Autowired
 	private LivreRepository livreRepo;
+	@Autowired
+	private EmpruntRepository empRepo;
 	
 	public List<Livre> getAll() {
 		return livreRepo.findAll();
 	}
 	
-	public Livre getById(Long id) {
+	public Livre getById(Integer id) {
 		if (id == null) {
 			throw new LivreException("id obligatoire"); //TODO créer une exception spéciale
 		}
@@ -34,7 +37,19 @@ public class LivreService {
 		});
 	}
 	
-	public void deleteById(Long id) {
+	public Livre getById(int id) {
+		return getById(Integer.valueOf(id));
+	}
+	
+	public List<Livre>getLivreWithTitreContaining(String motif){
+		return livreRepo.findByTitreContaining(motif);
+	}
+	
+	public void delete(Livre livre) {
+		livreRepo.delete(livre);
+	}
+	
+	public void deleteById(Integer id) {
 		livreRepo.delete(getById(id));
 	}
 	

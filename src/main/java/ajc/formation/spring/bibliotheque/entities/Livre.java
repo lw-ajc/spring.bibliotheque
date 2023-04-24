@@ -72,12 +72,16 @@ public class Livre {
 		this.auteur = auteur;
 	}
 
-	public int getLivreId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setLivreId(int livreId) {
+	public void setId(int livreId) {
 		this.id = livreId;
+	}
+	
+	public void setId(Long livreId) {
+		this.id = livreId.intValue();
 	}
 
 	public String getTitre() {
@@ -102,6 +106,12 @@ public class Livre {
 
 	public void setAuteur(String auteur) {
 		this.auteur = auteur;
+	}
+	
+	public void imprimer() {
+		System.out.println("======== livre =======\n" +
+				"id : " + id +
+				"\ntitre : " + titre);
 	}
 	
 	

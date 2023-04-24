@@ -16,7 +16,7 @@ import ajc.formation.spring.bibliotheque.services.AdministrateurService;
 import ajc.formation.spring.bibliotheque.services.UtilisateurService;
 
 @SpringBootTest
-public class UtilisateursExtractionTest {
+public class AdherentTest {
 
 	@Autowired
 	AdherentService adherentService;

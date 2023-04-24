@@ -39,7 +39,7 @@ public class LivreRestController {
 	
 	@GetMapping("/{id}")
 	@JsonView(JsonViews.Simple.class)
-	public Livre getById(@PathVariable Long id) {
+	public Livre getById(@PathVariable int id) {
 		Livre livre = null;
 		livre = livreServ.getById(id);
 		return livre;
@@ -58,7 +58,7 @@ public class LivreRestController {
 	
 	@PutMapping("/{id}")
 	@JsonView(JsonViews.Simple.class)
-	public Livre update(@RequestBody Livre livre, @PathVariable Long id) {
+	public Livre update(@RequestBody Livre livre, @PathVariable int id) {
 		Livre livreEnBase = livreServ.getById(id);
 		livreEnBase.setTitre(livre.getTitre());
 		livreEnBase.setAuteur(livre.getAuteur());
@@ -68,7 +68,7 @@ public class LivreRestController {
 	
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable Long id) {
+	public void delete(@PathVariable int id) {
 		livreServ.deleteById(id);
 	}
 

@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.core.style.ToStringStyler;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
@@ -36,9 +38,11 @@ public class Emprunt {
 	private boolean rendu;
 	@ManyToOne
 	@JoinColumn(name="id_emprunteur_emprunt", foreignKey = @ForeignKey(name="id_emprunteur_emprunt_fk"))
+//	@JoinColumn(name="id_emprunteur_emprunt")
 	@JsonView(JsonViews.Emprunt.class)
 	private Adherent emprunteur;
 	@ManyToOne
+//	@JoinColumn(name="id_livre_emprunt")
 	@JoinColumn(name="id_livre_emprunt", foreignKey = @ForeignKey(name="id_livre_emprunt_fk"))
 	@JsonView(JsonViews.Emprunt.class)
 	private Livre livre;
@@ -47,7 +51,7 @@ public class Emprunt {
 		super();
 	}
 
-	public Emprunt(LocalDate dateFin, LocalDate dateDebut, Adherent emprunteur,Livre livre) {
+	public Emprunt(LocalDate dateFin, Adherent emprunteur, Livre livre) {
 		super();
 		this.dateFin = dateFin;
 		this.dateDebut = LocalDate.now();
@@ -103,6 +107,11 @@ public class Emprunt {
 	public void setRendu(boolean rendu) {
 		this.rendu = rendu;
 	}
+	
+	public String toString() {
+		return "id='" + id + "', emprunteur='" + emprunteur + "', livre='" + livre;
+	}
+	
 
 	@Override
 	public int hashCode() {

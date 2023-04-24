@@ -42,14 +42,14 @@ public class AvisTest {
 		livreService.createOrUpdate(livre);
 		adherentService.createOrUpdate(adherent);
 		
-		Avis avis = new Avis(adherent.getId(), new Long(livre.getLivreId()), "moyen le tome 1", 5);
+		Avis avis = new Avis(adherent.getId(), new Long(livre.getId()), "moyen le tome 1", 5);
 		avisSrv.createOrUpdate(avis);
 		avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId()));
 		assert(avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId())) != null);
 		
 		livre = new Livre("Rubrique à brac [Tome 2]", "Gotlib", StatutLivre.DISPONIBLE);
 		livreService.createOrUpdate(livre);
-		avis = new Avis(adherent.getId(), new Long(livre.getLivreId()), "super le tome 2", 5);
+		avis = new Avis(adherent.getId(), new Long(livre.getId()), "super le tome 2", 5);
 		avisSrv.createOrUpdate(avis);
 		avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId()));
 		assert(avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId())) != null);
@@ -59,13 +59,10 @@ public class AvisTest {
 		adherentService.createOrUpdate(adherent);
 		livre =  new Livre("Rubrique à brac [Tome 3]", "Gotlib", StatutLivre.DISPONIBLE);
 		livreService.createOrUpdate(livre);
-		avis = new Avis(adherent.getId(), new Long(livre.getLivreId()), "/!\\ à ééviter", 5);
+		avis = new Avis(adherent.getId(), new Long(livre.getId()), "/!\\ à ééviter", 5);
 		avisSrv.createOrUpdate(avis);
 		avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId()));
 		assert(avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId())) != null);
-		
-		
-		
 		
 		
 		
