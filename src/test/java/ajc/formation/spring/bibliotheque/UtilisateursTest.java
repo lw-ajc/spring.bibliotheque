@@ -9,8 +9,11 @@ import org.springframework.test.annotation.Commit;
 
 import ajc.formation.spring.bibliotheque.entities.Adherent;
 import ajc.formation.spring.bibliotheque.entities.Administrateur;
+import ajc.formation.spring.bibliotheque.entities.Role;
+import ajc.formation.spring.bibliotheque.entities.Utilisateur;
 import ajc.formation.spring.bibliotheque.services.AdherentService;
 import ajc.formation.spring.bibliotheque.services.AdministrateurService;
+import ajc.formation.spring.bibliotheque.services.UtilisateurService;
 
 @SpringBootTest
 public class UtilisateursTest {
@@ -21,17 +24,23 @@ public class UtilisateursTest {
 	@Autowired
 	AdministrateurService adminSrv;
 	
+	@Autowired
+	UtilisateurService utilisateurService;
+	
 	@Test
 	@Commit
 	void ajouteAdminAdherent() {
-		Adherent adherent = new Adherent("Gérard", "Bouchard", "gbouchard", "mdp");
-		adherent.imprimerUtilisateur();
-		adherentService.createOrUpdate(adherent);
-		System.out.println(adherent.getNom());
-		assertNotNull(adherent.getId());
+		Utilisateur util = utilisateurService.getByLogin("admin");
+		util.imprimerUtilisateur();
 		
-		Administrateur administrateur = new Administrateur("admin", "admin", "admin", "$10$Bb61fz3Jq6lD9XqHLgYaReUvxA2tiHvtmPoQVZ6HU3JKzZBSmYM1i");
-		adminSrv.createOrUpdate(administrateur);
-		assertNotNull(administrateur.getId());
+		util = utilisateurService.getByLogin("ad");
+		util.imprimerUtilisateur();
+		
+		Administrateur admin = adminSrv.getById(Long.valueOf(2));
+		admin.imprimerUtilisateur();
+		
+
 	}
+	
+	
 }

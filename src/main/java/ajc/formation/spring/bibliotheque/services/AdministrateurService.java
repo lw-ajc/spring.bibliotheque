@@ -56,7 +56,7 @@ public class AdministrateurService {
 		if (administrateur.getPassword() == null || administrateur.getPassword().isBlank()) {
 			throw new AdministrateurException("mot de passe obligatoire");
 		}
-		administrateur.setPassword(passwordEncoder.encode(administrateur.getPassword()));
+//		administrateur.setPassword(passwordEncoder.encode(administrateur.getPassword()));
 		administrateurRepo.save(administrateur);
 	}
 }

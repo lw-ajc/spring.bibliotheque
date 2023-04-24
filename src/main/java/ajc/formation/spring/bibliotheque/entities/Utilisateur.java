@@ -1,25 +1,34 @@
 package ajc.formation.spring.bibliotheque.entities;
 
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Objects;
+
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 
-@MappedSuperclass
-public class Utilisateur {
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class Utilisateur implements UserDetails {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	@JsonView(JsonViews.Simple.class)
 	private Long id;
 	@Column(name = "nom", length = 255)
@@ -28,7 +37,7 @@ public class Utilisateur {
 	@Column(name = "prenom", length = 255)
 	@JsonView(JsonViews.Simple.class)
 	private String prenom;
-	
+	// coordonnées de connexion
 	@Column(name = "login", nullable = false, unique = true)
 	@JsonView(JsonViews.Simple.class)
 	private String login;
@@ -111,11 +120,66 @@ public class Utilisateur {
 	}
 	
 	public void imprimerUtilisateur() {
-		System.out.println("nom :\t" + this.nom +
-				"prénom :\t" + this.prenom +
-				"login :\t" + this.login +
-				"mdp :\t" + this.password +
-				"role :\t" + this.role);
+		System.out.println("==== utilisateur ====\n" + 
+				"nom :\t" + this.nom + "\n" +
+				"prénom :\t" + this.prenom + "\n" +
+				"login :\t" + this.login + "\n" +
+				"mdp :\t" + this.password + "\n" +
+				"role :\t" + this.role + "\n");
+	}
+
+	// interface UserDetails
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return Arrays.asList(new SimpleGrantedAuthority(role.toString()));
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.login;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Utilisateur other = (Utilisateur) obj;
+		return Objects.equals(id, other.id);
 	}
 	
 	

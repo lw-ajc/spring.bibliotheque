@@ -22,13 +22,10 @@ import javax.persistence.Table;
 @Table(name = "avis")
 @IdClass(AvisId.class)
 public class Avis implements Serializable {
-    @Id
-    //@ManyToOne
-    //@JoinColumn(name = "Adherent_Avis_id", foreignKey = @ForeignKey(name = "Adherent_Avis_id_fk"))
+    
+	@Id
 	private Long adherentId;
 	@Id
-//	@ManyToOne
-//	@JoinColumn(name = "Livre_Avis_id", foreignKey = @ForeignKey(name = "Livre_Avis_id_fk"))
 	private Long livreId;
 	
 	

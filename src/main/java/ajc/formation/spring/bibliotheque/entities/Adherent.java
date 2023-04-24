@@ -5,6 +5,9 @@ import java.util.List;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -41,6 +44,10 @@ public class Adherent extends Utilisateur{
 		super();
 	}
 	
+	public Adherent(String nom, String prenom) {
+		super(nom, prenom);
+	}
+	
 	public Adherent(String nom, String prenom, String login, String password) {
 		super(nom, prenom, login, password);
 		this.setRole(Role.ROLE_ADHERENT);
@@ -70,8 +77,6 @@ public class Adherent extends Utilisateur{
 		this.listeAvis = listeAvis;
 	}
 
-	public Adherent(String nom, String prenom) {
-		super(nom, prenom);
-	}
+
 	
 }
