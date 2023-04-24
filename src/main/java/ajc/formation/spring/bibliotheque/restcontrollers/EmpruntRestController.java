@@ -21,10 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
+
+import ajc.formation.spring.bibliotheque.entities.Adherent;
 import ajc.formation.spring.bibliotheque.entities.Emprunt;
+import ajc.formation.spring.bibliotheque.entities.Livre;
 import ajc.formation.spring.bibliotheque.exceptions.EmpruntException;
 import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
+import ajc.formation.spring.bibliotheque.model.CoupleEmprunt;
+import ajc.formation.spring.bibliotheque.services.AdherentService;
 import ajc.formation.spring.bibliotheque.services.EmpruntService;
+import ajc.formation.spring.bibliotheque.services.LivreService;
 
 @RestController
 @RequestMapping("/api/emprunt")
@@ -33,6 +39,10 @@ public class EmpruntRestController {
 	
 	@Autowired
 	private EmpruntService empruntSrv;
+	@Autowired
+	private AdherentService adSrv;
+	@Autowired
+	private LivreService livreSrv;
 	
 	@GetMapping("")
 	@JsonView(JsonViews.Emprunt.class)
@@ -55,15 +65,33 @@ public class EmpruntRestController {
 	@PostMapping("")
 	@JsonView(JsonViews.Emprunt.class)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Emprunt create(@Valid @RequestBody Emprunt emprunt, BindingResult br) {
+	public Emprunt create(@Valid @RequestBody CoupleEmprunt couple, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
+		Adherent adherent = adSrv.getById(couple.getAdherentId());
+		Livre livre = livreSrv.getById(couple.getLivreId());
+		Emprunt emprunt = new Emprunt();
 		emprunt.setDateDebut(LocalDate.now());
-		emprunt.setDateFin(LocalDate.now().plusMonths(1));
+		emprunt.setDateFin(LocalDate.now().plusMonths(3));
+		emprunt.setLivre(livre);
+		emprunt.setEmprunteur(adherent);
 		empruntSrv.createOrUpdate(emprunt);
 		return empruntSrv.getById(emprunt.getId());
 	}
+	
+//	@PostMapping("")
+//	@JsonView(JsonViews.Commande.class)
+//	public Commande create(@RequestBody List<ElementPanier> panier, @AuthenticationPrincipal Compte compte) {
+//		Commande commande = new Commande(compte.getClient());
+//		Set<Achat> achats = new HashSet<>();
+//		panier.forEach(e -> {
+//			achats.add(new Achat(new AchatId(commande, produitSrv.getById(e.getIdProduit())), e.getQuantite()));
+//		});
+//		commande.setAchats(achats);
+//		commandeService.create(commande);
+//		return commande;
+//	}
 
 	@PutMapping("/{id}")
 	@JsonView(JsonViews.Emprunt.class)

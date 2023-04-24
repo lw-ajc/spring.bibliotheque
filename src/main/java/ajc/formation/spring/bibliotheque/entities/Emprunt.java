@@ -12,8 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.springframework.core.style.ToStringStyler;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -37,11 +36,13 @@ public class Emprunt {
 	@JsonView(JsonViews.Simple.class)
 	private boolean rendu;
 	@ManyToOne
+	@NotNull
 	@JoinColumn(name="id_emprunteur_emprunt", foreignKey = @ForeignKey(name="id_emprunteur_emprunt_fk"))
 //	@JoinColumn(name="id_emprunteur_emprunt")
 	@JsonView(JsonViews.Emprunt.class)
 	private Adherent emprunteur;
 	@ManyToOne
+	@NotNull
 //	@JoinColumn(name="id_livre_emprunt")
 	@JoinColumn(name="id_livre_emprunt", foreignKey = @ForeignKey(name="id_livre_emprunt_fk"))
 	@JsonView(JsonViews.Emprunt.class)
