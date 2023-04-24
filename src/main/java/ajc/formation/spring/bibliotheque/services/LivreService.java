@@ -38,6 +38,10 @@ public class LivreService {
 		livreRepo.delete(getById(id));
 	}
 	
+	public void deleteAll() {
+		livreRepo.deleteAll();
+	}
+	
 	public void createOrUpdate(Livre livre) {
 		//TODO validation, le nom doit être non nul et non vide
 		//TODO le statut doit être non nul
@@ -48,6 +52,8 @@ public class LivreService {
 //		}
 		livreRepo.save(livre);
 	}
+
+	
 	
 	
 	

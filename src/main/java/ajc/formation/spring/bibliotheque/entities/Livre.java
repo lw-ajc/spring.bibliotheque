@@ -29,7 +29,7 @@ public class Livre {
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonView(JsonViews.Simple.class)
-	private int livreId;
+	private int id;
 	@Column(name = "titre", nullable = false, length = 255)
 	@JsonView(JsonViews.Simple.class)
 	private String titre;
@@ -52,8 +52,7 @@ public class Livre {
 	@OneToMany(mappedBy = "livre")
 	Set<Emprunt> emprunts = new HashSet<Emprunt>();
 	
-	//relation favori
-	//relation avis
+	//relation favoris
 		
 
 	public Livre() {
@@ -74,11 +73,11 @@ public class Livre {
 	}
 
 	public int getLivreId() {
-		return livreId;
+		return id;
 	}
 
 	public void setLivreId(int livreId) {
-		this.livreId = livreId;
+		this.id = livreId;
 	}
 
 	public String getTitre() {

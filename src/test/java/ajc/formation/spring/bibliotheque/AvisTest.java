@@ -1,5 +1,6 @@
 package ajc.formation.spring.bibliotheque;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,19 +25,48 @@ public class AvisTest {
 	@Autowired
 	AvisService avisSrv;
 	
+	@BeforeEach
+	@Commit
+	public void initTable() {
+		// La racine est réinitialisée à chaque test.
+		livreService.deleteAll();
+		adherentService.deleteAll();
+		avisSrv.deleteAll();
+	}
 	
 	@Test
 	@Commit
 	void creerAvis() {
-		Livre livre = new Livre("Le petit prince", "Saint Exupéry", StatutLivre.DISPONIBLE);
-		Adherent adherent = new Adherent("Gérard", "Bouchard", "gbouchard", "mdp");
+		Livre livre = new Livre("Rubrique à brac [Tome 1]", "Gotlib", StatutLivre.DISPONIBLE);
+		Adherent adherent = new Adherent("Gérard", "Bouchard", "ggbouchard", "mdp");
 		livreService.createOrUpdate(livre);
 		adherentService.createOrUpdate(adherent);
-		Avis avis = new Avis(adherent.getId(), new Long(livre.getLivreId()), "commentaire", 5);
-		avisSrv.createOrUpdate(avis);
 		
-		AvisId avisId = new AvisId(avis.getAdherentId(), avis.getLivreId());
-		avisSrv.getById(avisId);
+		Avis avis = new Avis(adherent.getId(), new Long(livre.getLivreId()), "moyen le tome 1", 5);
+		avisSrv.createOrUpdate(avis);
+		avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId()));
+		assert(avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId())) != null);
+		
+		livre = new Livre("Rubrique à brac [Tome 2]", "Gotlib", StatutLivre.DISPONIBLE);
+		livreService.createOrUpdate(livre);
+		avis = new Avis(adherent.getId(), new Long(livre.getLivreId()), "super le tome 2", 5);
+		avisSrv.createOrUpdate(avis);
+		avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId()));
+		assert(avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId())) != null);
+		
+		
+		adherent = new Adherent("Jojo", "Mojo", "jmoj", "mdp");
+		adherentService.createOrUpdate(adherent);
+		livre =  new Livre("Rubrique à brac [Tome 3]", "Gotlib", StatutLivre.DISPONIBLE);
+		livreService.createOrUpdate(livre);
+		avis = new Avis(adherent.getId(), new Long(livre.getLivreId()), "/!\\ à ééviter", 5);
+		avisSrv.createOrUpdate(avis);
+		avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId()));
+		assert(avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId())) != null);
+		
+		
+		
+		
 		
 		
 	}

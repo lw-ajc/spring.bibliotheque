@@ -46,6 +46,10 @@ public class AdherentService {
 		Adherent adherent = getById(id);
 		adherentRepo.deleteById(id);
 	}
+	
+	public void deleteAll() {
+		adherentRepo.deleteAll();
+	}
 
 	public void createOrUpdate(Adherent adherent) {
 		if (adherent.getNom() == null || adherent.getNom().isBlank()) {
@@ -89,5 +93,7 @@ public class AdherentService {
 	public void avisLivre() {
 		// commentaire + note
 	}
+
+	
 	
 }

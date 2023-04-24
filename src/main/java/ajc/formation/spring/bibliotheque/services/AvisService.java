@@ -48,9 +48,16 @@ public class AvisService {
 		return getByLivreId(Long.valueOf(livre.getLivreId()));
 	}
 	
+	public void deleteAll() {
+		avisRepo.deleteAll();
+	}
+	
 	public void createOrUpdate(Avis avis) {
 		avisRepo.save(avis);
 	}
+
+
+	
 	
 	
 
