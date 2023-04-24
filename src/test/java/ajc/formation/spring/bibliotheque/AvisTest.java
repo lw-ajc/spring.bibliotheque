@@ -32,7 +32,6 @@ public class AvisTest {
 		Adherent adherent = new Adherent("Gérard", "Bouchard", "gbouchard", "mdp");
 		livreService.createOrUpdate(livre);
 		adherentService.createOrUpdate(adherent);
-		//TODO convertir int to long proprement
 		Avis avis = new Avis(adherent.getId(), new Long(livre.getLivreId()), "commentaire", 5);
 		avisSrv.createOrUpdate(avis);
 		

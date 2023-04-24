@@ -11,11 +11,15 @@ public class JsonViews {
 
 	}
 	
-	public static class Utilisateur extends Simple {
+	public static class AdherentWithLists extends Simple {
 
 	}
 	
-	public static class AdherentWithLists extends Utilisateur {
+	public static class UtilisateurWithRole extends Simple {
+
+	}
+	
+	public static class UtilisateurWithMdp extends Simple {
 
 	}
 

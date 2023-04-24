@@ -33,6 +33,7 @@ public class AdherentRestController {
 
 	@GetMapping("")
 	@JsonView(JsonViews.Simple.class)
+//	@JsonView(JsonViews.UtilisateurWithMdp.class)
 	public List<Adherent> getAll() {
 		return adherentSrv.getAll();
 	}
@@ -46,10 +47,11 @@ public class AdherentRestController {
 	}
 
 
+	//TODO Trouver comment retirer Role de l'interface Json sans pour autant que la requête soit refusée
 	@PostMapping("")
-	@JsonView(JsonViews.Simple.class)
+	@JsonView(JsonViews.UtilisateurWithMdp.class)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Adherent create(@Valid @RequestBody Adherent adherent, BindingResult br) {
+	public Adherent create(@RequestBody Adherent adherent, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
@@ -59,6 +61,7 @@ public class AdherentRestController {
 
 	@PutMapping("/{id}")
 	@JsonView(JsonViews.Simple.class)
+//	@JsonView(JsonViews.UtilisateurWithMdp.class)
 	public Adherent update(@RequestBody Adherent adherent, @PathVariable Long id) {
 		Adherent adherentEnBase = adherentSrv.getById(id);
 		if (adherent.getEmprunts()!= null) {

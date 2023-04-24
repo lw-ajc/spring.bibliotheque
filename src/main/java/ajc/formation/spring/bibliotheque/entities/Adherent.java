@@ -31,12 +31,12 @@ public class Adherent extends Utilisateur{
 	
 	@Transient
 //	@OneToMany(mappedBy = "adherent")
-//	@JsonView(JsonViews.AdherentWithLists.class)
+	@JsonView(JsonViews.AdherentWithLists.class)
 	private List<Livre> favoris;
 	
 	@Transient
 //	@OneToMany(mappedBy = "adherent")
-//	@JsonView(JsonViews.AdherentWithLists.class)
+	@JsonView(JsonViews.AdherentWithLists.class)
 	private List<Avis> listeAvis;
 	
 	

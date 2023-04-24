@@ -37,15 +37,17 @@ public abstract class Utilisateur implements UserDetails {
 	@Column(name = "prenom", length = 255)
 	@JsonView(JsonViews.Simple.class)
 	private String prenom;
+	
 	// coordonnées de connexion
 	@Column(name = "login", nullable = false, unique = true)
 	@JsonView(JsonViews.Simple.class)
 	private String login;
 	@Column(name = "password", length = 255, nullable = false)
+	@JsonView(JsonViews.UtilisateurWithMdp.class)
 	private String password;
 	@Column(name = "role", nullable = false)
 	@Enumerated(EnumType.STRING)
-	@JsonView(JsonViews.Utilisateur.class)
+	@JsonView(JsonViews.UtilisateurWithRole.class)
 	private Role role;
 	
 	public Utilisateur() {

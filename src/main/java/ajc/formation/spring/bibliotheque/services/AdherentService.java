@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ajc.formation.spring.bibliotheque.entities.Adherent;
+import ajc.formation.spring.bibliotheque.entities.Role;
 import ajc.formation.spring.bibliotheque.exceptions.AdherentException;
 import ajc.formation.spring.bibliotheque.exceptions.AdministrateurException;
 import ajc.formation.spring.bibliotheque.repositories.AdherentRepository;
@@ -60,6 +61,7 @@ public class AdherentService {
 			throw new AdministrateurException("mot de passe obligatoire");
 		}
 		adherent.setPassword(passwordEncoder.encode(adherent.getPassword()));
+		adherent.setRole(Role.ROLE_ADHERENT);
 		adherentRepo.save(adherent);
 	}
 
