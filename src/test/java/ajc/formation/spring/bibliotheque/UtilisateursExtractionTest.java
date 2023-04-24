@@ -40,10 +40,7 @@ public class UtilisateursExtractionTest {
 		adminSrv.createOrUpdate(administrateur);
 		assertNotNull(administrateur.getId());
 		
-		Utilisateur utilisateur = new Utilisateur("util", "util", "util", "util");
-		utilisateur.setRole(Role.ROLE_ADHERENT);
-		utilisateurService.createOrUpdate(utilisateur);
-		assertNotNull(utilisateur.getId());
+		
 		
 	}
 	

@@ -60,7 +60,7 @@ public class UtilisateurService {
 		if (utilisateur.getPassword() == null || utilisateur.getPassword().isBlank()) {
 			throw new UtilisateurException("mot de passe obligatoire");
 		}
-//		utilisateur.setPassword(passwordEncoder.encode(utilisateur.getPassword()));
+		utilisateur.setPassword(passwordEncoder.encode(utilisateur.getPassword()));
 		utilisateurRepo.save(utilisateur);
 	}
 

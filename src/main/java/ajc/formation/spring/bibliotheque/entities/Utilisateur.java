@@ -26,7 +26,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Utilisateur implements UserDetails {
+public abstract class Utilisateur implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@JsonView(JsonViews.Simple.class)

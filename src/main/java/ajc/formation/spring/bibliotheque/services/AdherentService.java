@@ -1,9 +1,9 @@
 package ajc.formation.spring.bibliotheque.services;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import ajc.formation.spring.bibliotheque.entities.Adherent;
@@ -17,6 +17,8 @@ public class AdherentService {
 	
 	@Autowired
 	private AdherentRepository adherentRepo;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	
 	public List<Adherent> getAll() {
@@ -57,6 +59,7 @@ public class AdherentService {
 		if (adherent.getPassword() == null || adherent.getPassword().isBlank()) {
 			throw new AdministrateurException("mot de passe obligatoire");
 		}
+		adherent.setPassword(passwordEncoder.encode(adherent.getPassword()));
 		adherentRepo.save(adherent);
 	}
 
