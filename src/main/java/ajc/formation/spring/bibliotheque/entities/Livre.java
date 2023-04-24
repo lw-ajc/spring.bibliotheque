@@ -26,6 +26,7 @@ import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
 public class Livre {
 	
 	@Id
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonView(JsonViews.Simple.class)
 	private int livreId;

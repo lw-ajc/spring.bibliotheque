@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ajc.formation.spring.bibliotheque.entities.Adherent;
 import ajc.formation.spring.bibliotheque.entities.Avis;
 import ajc.formation.spring.bibliotheque.entities.AvisId;
+import ajc.formation.spring.bibliotheque.entities.Livre;
 import ajc.formation.spring.bibliotheque.exceptions.AvisException;
 import ajc.formation.spring.bibliotheque.repositories.AvisRepository;
 
@@ -21,14 +23,6 @@ public class AvisService {
 		return avisRepo.findAll();
 	}
 	
-//	public Adherent getById(Long id) {
-//		if (id == null) {
-//			throw new AdherentException("id obligatoire");
-//		}
-//		return adherentRepo.findById(id).orElseThrow(() -> {
-//			throw new AdherentException("id inconnu");
-//		});
-//	}
 	
 	public Avis getById(AvisId avis) {
 		return avisRepo.findById(avis).orElseThrow(() -> {
@@ -36,8 +30,28 @@ public class AvisService {
 		});
 	}
 	
+	public Avis getByAdherentId(Long adherentId) {
+		return avisRepo.findByAdherentId(adherentId).orElseThrow(() -> {
+			throw new AvisException("avis inconnu");
+		});
+	}
+	public Avis getByAdherent(Adherent adherent) {
+		return getByAdherentId(adherent.getId());
+	}
+	
+	public Avis getByLivreId(Long livreId) {
+		return avisRepo.findByLivreId(livreId).orElseThrow(() -> {
+			throw new AvisException("avis inconnu");
+		});
+	}
+	public Avis getByLivre(Livre livre) {
+		return getByLivreId(Long.valueOf(livre.getLivreId()));
+	}
+	
 	public void createOrUpdate(Avis avis) {
 		avisRepo.save(avis);
 	}
+	
+	
 
 }
