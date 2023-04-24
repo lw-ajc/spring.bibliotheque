@@ -11,6 +11,7 @@ import ajc.formation.spring.bibliotheque.entities.Role;
 import ajc.formation.spring.bibliotheque.exceptions.AdherentException;
 import ajc.formation.spring.bibliotheque.exceptions.AdministrateurException;
 import ajc.formation.spring.bibliotheque.repositories.AdherentRepository;
+import ajc.formation.spring.bibliotheque.repositories.EmpruntRepository;
 
 
 @Service
@@ -18,6 +19,8 @@ public class AdherentService {
 	
 	@Autowired
 	private AdherentRepository adherentRepo;
+	@Autowired
+	private EmpruntRepository empRepo;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
@@ -30,15 +33,22 @@ public class AdherentService {
 		if (id == null) {
 			throw new AdherentException("id obligatoire");
 		}
-		//Optional<Adherent> adherent = adherentRepo.findById(id);
 		return adherentRepo.findById(id).orElseThrow(() -> {
 			throw new AdherentException("id inconnu");
+		});
+	}
+	
+	public Adherent getByLogin(String login) {
+		return adherentRepo.findByLogin(login).orElseThrow(() -> {
+			throw new AdherentException("login inconnu");
 		});
 	}
 
 
 	public void delete(Adherent adherent) {
-		deleteById(adherent.getId());
+		// On supprime les emprunts associés à l'adhérent
+		empRepo.deleteByEmprunteur(adherent);
+		adherentRepo.deleteById(adherent.getId());
 	}
 
 	public void deleteById(Long id) {
@@ -48,6 +58,7 @@ public class AdherentService {
 	}
 	
 	public void deleteAll() {
+		empRepo.deleteAll();
 		adherentRepo.deleteAll();
 	}
 
@@ -93,6 +104,8 @@ public class AdherentService {
 	public void avisLivre() {
 		// commentaire + note
 	}
+
+	
 
 	
 	

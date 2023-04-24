@@ -4,8 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.LocalDate;
 
-import org.springframework.core.style.ToStringCreator;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,28 +27,58 @@ public class EmpruntTest {
 	@Autowired
 	AdherentService adherentService;
 	
+	
+	
+
+//	@Test
+//	@Commit
+//	void ajouterEmprunt() {		
+//		
+//		//adherentService.deleteAll();
+//
+//		Livre livre = new Livre("À l'ouest rien de nouveau", "Erich Maria Remarque", StatutLivre.DISPONIBLE);
+//		livreServ.createOrUpdate(livre);
+//		assertNotNull(livre.getId());
+//		
+//		Adherent adherent = new Adherent("Gérard", "Bouchard", "gbouchard", "mdp");
+//		adherentService.createOrUpdate(adherent);
+//		assertNotNull(adherent.getId());
+//		
+////		Emprunt emprunt = new Emprunt();		
+////		empruntSrv.createOrUpdate(emprunt);
+////		assertNotNull(emprunt.getId());
+//		
+////		Emprunt emprunt = new Emprunt(LocalDate.now(), adherent, livre);
+////		empruntSrv.createOrUpdate(emprunt);
+////		
+////		System.out.println(emprunt.toString());
+//	}
+	
 	@Test
 	@Commit
-	void ajouterEmprunt() {		
+	void asqdfprunt() {		
 		
-		//adherentService.deleteAll();
-
+		
+		
 		Livre livre = new Livre("À l'ouest rien de nouveau", "Erich Maria Remarque", StatutLivre.DISPONIBLE);
 		livreServ.createOrUpdate(livre);
 		assertNotNull(livre.getId());
 		
-		Adherent adherent = new Adherent("Gérard", "Bouchard", "gbouchard", "mdp");
-		adherentService.createOrUpdate(adherent);
+		Adherent adherent;
+		try {
+			adherent =  adherentService.getByLogin("gbouchard");
+		} catch (Exception e) {
+			adherent = new Adherent("Gérard", "Bouchard", "gbouchard", "mdp");
+			adherentService.createOrUpdate(adherent);
+		}
 		assertNotNull(adherent.getId());
 		
-//		Emprunt emprunt = new Emprunt();		
-//		empruntSrv.createOrUpdate(emprunt);
-//		assertNotNull(emprunt.getId());
 		
-//		Emprunt emprunt = new Emprunt(LocalDate.now(), adherent, livre);
-//		empruntSrv.createOrUpdate(emprunt);
-//		
-//		System.out.println(emprunt.toString());
+		Emprunt emprunt = new Emprunt(LocalDate.now(), adherent, livre);
+		empruntSrv.createOrUpdate(emprunt);
+		
+		adherentService.delete(adherent);
+
 	}
 	
 //	@Test
