@@ -62,6 +62,7 @@ public class LivreRestController {
 		Livre livreEnBase = livreServ.getById(id);
 		livreEnBase.setTitre(livre.getTitre());
 		livreEnBase.setAuteur(livre.getAuteur());
+		livreEnBase.setStatut(livre.getStatut());
 		livreServ.createOrUpdate(livreEnBase);
 		return livreEnBase;
 	}
