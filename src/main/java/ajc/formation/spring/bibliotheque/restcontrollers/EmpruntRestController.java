@@ -80,6 +80,24 @@ public class EmpruntRestController {
 		return empruntSrv.getById(emprunt.getId());
 	}
 	
+//	@PostMapping("/auth")
+//	@JsonView(JsonViews.Emprunt.class)
+//	@ResponseStatus(code = HttpStatus.CREATED)
+//	public Emprunt createAuth(@Valid @RequestBody CoupleEmprunt couple, @AuthenticationPrincipal Adherent emprunteur) {
+//		if (br.hasErrors()) {
+//			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//		}
+//		Adherent adherent = adSrv.getById(couple.getAdherentId());
+//		Livre livre = livreSrv.getById(couple.getLivreId());
+//		Emprunt emprunt = new Emprunt();
+//		emprunt.setDateDebut(LocalDate.now());
+//		emprunt.setDateFin(LocalDate.now().plusMonths(3));
+//		emprunt.setLivre(livre);
+//		emprunt.setEmprunteur(adherent);
+//		empruntSrv.createOrUpdate(emprunt);
+//		return empruntSrv.getById(emprunt.getId());
+//	}
+//	
 //	@PostMapping("")
 //	@JsonView(JsonViews.Commande.class)
 //	public Commande create(@RequestBody List<ElementPanier> panier, @AuthenticationPrincipal Compte compte) {
