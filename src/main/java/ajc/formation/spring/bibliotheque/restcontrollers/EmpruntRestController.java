@@ -52,7 +52,7 @@ public class EmpruntRestController {
 	
 	@GetMapping("/{id}")
 	@JsonView(JsonViews.Emprunt.class)
-	public Emprunt getById(@PathVariable Long id) {
+	public Emprunt getById(@PathVariable int id) {
 		Emprunt emprunt = null;
 		try {
 			emprunt = empruntSrv.getById(id);
@@ -95,7 +95,7 @@ public class EmpruntRestController {
 
 	@PutMapping("/{id}")
 	@JsonView(JsonViews.Emprunt.class)
-	public Emprunt update(@RequestBody Emprunt emprunt, @PathVariable Long id) {
+	public Emprunt update(@RequestBody Emprunt emprunt, @PathVariable int id) {
 		Emprunt empruntEnBase = empruntSrv.getById(id);
 		if (emprunt.getDateDebut() != null) {
 			empruntEnBase.setDateDebut(emprunt.getDateDebut());
@@ -115,7 +115,7 @@ public class EmpruntRestController {
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable Long id) {
+	public void delete(@PathVariable int id) {
 		empruntSrv.deleteById(id);
 	}
 

@@ -1,18 +1,18 @@
 package ajc.formation.spring.bibliotheque.model;
 
 public class CoupleEmprunt {
-	private Long adherentId;
+	private int adherentId;
 	private int livreId;
 	
-	public CoupleEmprunt(Long adherentId, int livreId) {
+	public CoupleEmprunt(int adherentId, int livreId) {
 		super();
 		this.adherentId = adherentId;
 		this.livreId = livreId;
 	}
-	public Long getAdherentId() {
+	public int getAdherentId() {
 		return adherentId;
 	}
-	public void setAdherentId(Long adherentId) {
+	public void setAdherentId(int adherentId) {
 		this.adherentId = adherentId;
 	}
 	public int getLivreId() {

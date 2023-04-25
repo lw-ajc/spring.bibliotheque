@@ -8,7 +8,7 @@ import ajc.formation.spring.bibliotheque.entities.Adherent;
 import ajc.formation.spring.bibliotheque.entities.Administrateur;
 
 
-public interface AdherentRepository extends JpaRepository<Adherent, Long>{
+public interface AdherentRepository extends JpaRepository<Adherent, Integer>{
 	Optional<Adherent> findByLogin(String login);
 
 }

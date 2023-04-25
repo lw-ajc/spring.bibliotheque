@@ -41,7 +41,7 @@ public class AdherentRestController {
 
 	@GetMapping("/{id}")
 	@JsonView(JsonViews.AdherentWithLists.class)
-	public Adherent getById(@PathVariable Long id) {
+	public Adherent getById(@PathVariable int id) {
 		Adherent adherent = null;
 		adherent = adherentSrv.getById(id);
 		return adherent;
@@ -63,7 +63,7 @@ public class AdherentRestController {
 	@PutMapping("/{id}")
 	@JsonView(JsonViews.Simple.class)
 //	@JsonView(JsonViews.UtilisateurWithMdp.class)
-	public Adherent update(@RequestBody Adherent adherent, @PathVariable Long id) {
+	public Adherent update(@RequestBody Adherent adherent, @PathVariable int id) {
 		Adherent adherentEnBase = adherentSrv.getById(id);
 		if (adherent.getEmprunts()!= null) {
 			adherentEnBase.setEmprunts(adherent.getEmprunts());
@@ -89,7 +89,7 @@ public class AdherentRestController {
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable Long id) {
+	public void delete(@PathVariable int id) {
 		adherentSrv.deleteById(id);
 	}
 }

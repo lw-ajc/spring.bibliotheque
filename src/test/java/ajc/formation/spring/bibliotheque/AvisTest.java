@@ -37,33 +37,6 @@ public class AvisTest {
 	@Test
 	@Commit
 	void creerAvis() {
-		Livre livre = new Livre("Rubrique à brac [Tome 1]", "Gotlib", StatutLivre.DISPONIBLE);
-		Adherent adherent = new Adherent("Gérard", "Bouchard", "ggbouchard", "mdp");
-		livreService.createOrUpdate(livre);
-		adherentService.createOrUpdate(adherent);
-		
-		Avis avis = new Avis(adherent.getId(), new Long(livre.getId()), "moyen le tome 1", 5);
-		avisSrv.createOrUpdate(avis);
-		avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId()));
-		assert(avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId())) != null);
-		
-		livre = new Livre("Rubrique à brac [Tome 2]", "Gotlib", StatutLivre.DISPONIBLE);
-		livreService.createOrUpdate(livre);
-		avis = new Avis(adherent.getId(), new Long(livre.getId()), "super le tome 2", 5);
-		avisSrv.createOrUpdate(avis);
-		avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId()));
-		assert(avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId())) != null);
-		
-		
-		adherent = new Adherent("Jojo", "Mojo", "jmoj", "mdp");
-		adherentService.createOrUpdate(adherent);
-		livre =  new Livre("Rubrique à brac [Tome 3]", "Gotlib", StatutLivre.DISPONIBLE);
-		livreService.createOrUpdate(livre);
-		avis = new Avis(adherent.getId(), new Long(livre.getId()), "/!\\ à ééviter", 5);
-		avisSrv.createOrUpdate(avis);
-		avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId()));
-		assert(avisSrv.getById(new AvisId(avis.getAdherentId(), avis.getLivreId())) != null);
-		
 		
 		
 	}

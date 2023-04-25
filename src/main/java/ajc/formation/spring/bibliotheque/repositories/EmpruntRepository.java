@@ -15,7 +15,7 @@ import ajc.formation.spring.bibliotheque.entities.Adherent;
 import ajc.formation.spring.bibliotheque.entities.Emprunt;
 import ajc.formation.spring.bibliotheque.entities.Livre;
 
-public interface EmpruntRepository extends JpaRepository<Emprunt, Long> {
+public interface EmpruntRepository extends JpaRepository<Emprunt, Integer> {
 	
 	List<Emprunt> findByEmprunteur (Adherent emprunteur);
 	

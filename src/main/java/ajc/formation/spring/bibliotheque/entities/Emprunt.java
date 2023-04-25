@@ -25,7 +25,7 @@ public class Emprunt {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column (name="id_emprunt")
 	@JsonView(JsonViews.Simple.class)
-	private Long id;
+	private int id;
 	@Column (name="date_debut_emprunt")
 	@JsonView(JsonViews.Simple.class)
 	private LocalDate dateDebut;
@@ -60,11 +60,11 @@ public class Emprunt {
 		this.livre=livre;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

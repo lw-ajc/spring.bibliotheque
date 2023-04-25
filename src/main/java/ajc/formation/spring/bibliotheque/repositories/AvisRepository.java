@@ -8,6 +8,6 @@ import ajc.formation.spring.bibliotheque.entities.Avis;
 import ajc.formation.spring.bibliotheque.entities.AvisId;
 
 public interface AvisRepository extends JpaRepository<Avis, AvisId>{
-	Optional<Avis> findByAdherentId(Long adhrentId);
-	Optional<Avis> findByLivreId(Long livreId);
+	Optional<Avis> findByAdherentId(int adhrentId);
+	Optional<Avis> findByLivreId(int livreId);
 }

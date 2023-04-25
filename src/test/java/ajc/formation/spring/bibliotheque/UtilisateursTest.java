@@ -36,7 +36,7 @@ public class UtilisateursTest {
 		util = utilisateurService.getByLogin("ad");
 		util.imprimerUtilisateur();
 		
-		Administrateur admin = adminSrv.getById(Long.valueOf(2));
+		Administrateur admin = adminSrv.getById(2);
 		admin.imprimerUtilisateur();
 		
 

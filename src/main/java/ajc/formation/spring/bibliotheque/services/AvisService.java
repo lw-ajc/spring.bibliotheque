@@ -30,7 +30,7 @@ public class AvisService {
 		});
 	}
 	
-	public Avis getByAdherentId(Long adherentId) {
+	public Avis getByAdherentId(int adherentId) {
 		return avisRepo.findByAdherentId(adherentId).orElseThrow(() -> {
 			throw new AvisException("avis inconnu");
 		});
@@ -39,13 +39,13 @@ public class AvisService {
 		return getByAdherentId(adherent.getId());
 	}
 	
-	public Avis getByLivreId(Long livreId) {
+	public Avis getByLivreId(int livreId) {
 		return avisRepo.findByLivreId(livreId).orElseThrow(() -> {
 			throw new AvisException("avis inconnu");
 		});
 	}
 	public Avis getByLivre(Livre livre) {
-		return getByLivreId(Long.valueOf(livre.getId()));
+		return getByLivreId(livre.getId());
 	}
 	
 	public void deleteAll() {

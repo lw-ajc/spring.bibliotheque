@@ -30,7 +30,7 @@ public abstract class Utilisateur implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	@JsonView(JsonViews.Simple.class)
-	private Long id;
+	private int id;
 	@Column(name = "nom", length = 255)
 	@JsonView(JsonViews.Simple.class)
 	private String nom;
@@ -54,7 +54,7 @@ public abstract class Utilisateur implements UserDetails {
 		super();
 	}
 
-	public Utilisateur(Long id, String nom, String prenom, Role role) {
+	public Utilisateur(int id, String nom, String prenom, Role role) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -84,10 +84,10 @@ public abstract class Utilisateur implements UserDetails {
 		this.password = password;
 	}
 	
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public String getNom() {

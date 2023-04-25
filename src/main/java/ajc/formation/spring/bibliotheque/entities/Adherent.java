@@ -23,7 +23,6 @@ import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
 @AttributeOverride(name = "prenom", column = @Column(name = "adherent_prenom"))
 @AttributeOverride(name = "login", column = @Column(name = "adherent_login"))
 @AttributeOverride(name = "password", column = @Column(name = "adherent_password"))
-@AttributeOverride(name = "role", column = @Column(name = "role"))
 public class Adherent extends Utilisateur{
 	@OneToMany(mappedBy = "emprunteur")
 	@JsonView(JsonViews.AdherentWithLists.class)
@@ -50,7 +49,6 @@ public class Adherent extends Utilisateur{
 	
 	public Adherent(String nom, String prenom, String login, String password) {
 		super(nom, prenom, login, password);
-		this.setRole(Role.ROLE_ADHERENT);
 	}
 
 	public List<Emprunt> getEmprunts() {

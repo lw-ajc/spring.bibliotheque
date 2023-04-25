@@ -40,7 +40,7 @@ public class AdministrateurRestController {
 
 	@GetMapping("/{id}")
 	@JsonView(JsonViews.Simple.class)
-	public Administrateur getById(@PathVariable Long id) {
+	public Administrateur getById(@PathVariable int id) {
 		Administrateur administrateur = null;
 		administrateur = administrateurSrv.getById(id);
 		return administrateur;
@@ -60,7 +60,7 @@ public class AdministrateurRestController {
 
 	@PutMapping("/{id}")
 	@JsonView(JsonViews.Simple.class)
-	public Administrateur update(@RequestBody Administrateur administrateur, @PathVariable Long id) {
+	public Administrateur update(@RequestBody Administrateur administrateur, @PathVariable int id) {
 		Administrateur administrateurEnBase = administrateurSrv.getById(id);
 		if (administrateur.getLogin()!= null) {
 			administrateurEnBase.setLogin(administrateur.getLogin());
@@ -86,7 +86,7 @@ public class AdministrateurRestController {
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void delete(@PathVariable Long id) {
+	public void delete(@PathVariable int id) {
 		administrateurSrv.deleteById(id);
 	}
 }

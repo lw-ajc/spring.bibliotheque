@@ -24,10 +24,8 @@ public class AdministrateurService {
 		return administrateurRepo.findAll();
 	}
 
-	public Administrateur getById(Long id) {
-		if (id == null) {
-			throw new AdministrateurException("id obligatoire");
-		}
+	public Administrateur getById(int id) {
+		
 		return administrateurRepo.findById(id).orElseThrow(() -> {
 			throw new AdministrateurException("id inconnu");
 		});
@@ -38,7 +36,7 @@ public class AdministrateurService {
 		deleteById(administrateur.getId());
 	}
 
-	public void deleteById(Long id) {
+	public void deleteById(int id) {
 		Administrateur a = getById(id);
 		administrateurRepo.deleteById(id);
 	}

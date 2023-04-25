@@ -23,10 +23,8 @@ public class UtilisateurService {
 		return utilisateurRepo.findAll();
 	}
 
-	public Utilisateur getById(Long id) {
-		if (id == null) {
-			throw new UtilisateurException("id obligatoire");
-		}
+	public Utilisateur getById(int id) {
+		
 		return utilisateurRepo.findById(id).orElseThrow(() -> {
 			throw new UtilisateurException("id inconnu");
 		});
@@ -43,7 +41,7 @@ public class UtilisateurService {
 		deleteById(utilisateur.getId());
 	}
 
-	public void deleteById(Long id) {
+	public void deleteById(int id) {
 		utilisateurRepo.deleteById(id);
 	}
 

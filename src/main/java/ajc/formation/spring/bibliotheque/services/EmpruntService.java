@@ -20,10 +20,7 @@ public class EmpruntService {
 		return empruntRepo.findAll();
 	}
 	
-	public Emprunt getById(Long id) {
-		if (id == null) {
-			throw new EmpruntException("Id obligatoire");
-		}
+	public Emprunt getById(int id) {
 		return empruntRepo.findById(id).orElseThrow(() -> {
 			throw new EmpruntException("Id d'emprunt inconnu");
 		});
@@ -33,7 +30,7 @@ public class EmpruntService {
 		deleteById(emprunt.getId());
 	}
 	
-	public void deleteById (Long id) {
+	public void deleteById (int id) {
 		empruntRepo.delete(getById(id));
 	}
 	

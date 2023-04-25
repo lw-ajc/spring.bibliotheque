@@ -29,10 +29,7 @@ public class AdherentService {
 		return adherentRepo.findAll();
 	}
 
-	public Adherent getById(Long id) {
-		if (id == null) {
-			throw new AdherentException("id obligatoire");
-		}
+	public Adherent getById(int id) {
 		return adherentRepo.findById(id).orElseThrow(() -> {
 			throw new AdherentException("id inconnu");
 		});
@@ -51,7 +48,7 @@ public class AdherentService {
 		adherentRepo.deleteById(adherent.getId());
 	}
 
-	public void deleteById(Long id) {
+	public void deleteById(int id) {
 		@SuppressWarnings("unused")
 		Adherent adherent = getById(id);
 		adherentRepo.deleteById(id);
