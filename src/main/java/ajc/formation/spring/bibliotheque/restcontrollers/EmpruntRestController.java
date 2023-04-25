@@ -108,6 +108,7 @@ public class EmpruntRestController {
 		return empruntSrv.getById(emprunt.getId());
 	}
 	
+	
 
 //	@PostMapping("")
 //	@JsonView(JsonViews.Commande.class)

@@ -2,8 +2,8 @@ package ajc.formation.spring.bibliotheque.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 //import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,11 +17,12 @@ public class SecurityConfig {
 		//@formatter:off
 		return http.antMatcher("/api/**")
 				.csrf().disable()
-//				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // faut le mettre ?????
 //				.and()
 				.authorizeRequests()
 					.anyRequest().permitAll()
 //					.anyRequest().hasAnyRole("ADMIN")
+//					.anyRequest().hasAnyRole("ADHERENT")
 //					.antMatchers(HttpMethod.OPTIONS).permitAll()
 //					.antMatchers(HttpMethod.GET, "api/accueil_admin").hasAnyRole("ADMIN")
 //					.antMatchers(HttpMethod.GET, "api/accueil_adherent").hasAnyRole("ADHERENT")
