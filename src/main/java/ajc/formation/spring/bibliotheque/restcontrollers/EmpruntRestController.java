@@ -1,6 +1,8 @@
 package ajc.formation.spring.bibliotheque.restcontrollers;
 
 import java.time.LocalDate;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import java.util.List;
 
 import javax.validation.Valid;
@@ -62,10 +64,10 @@ public class EmpruntRestController {
 		return emprunt;
 	}
 
-	@PostMapping("")
+	@PostMapping("/obsolete")
 	@JsonView(JsonViews.Emprunt.class)
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public Emprunt create(@Valid @RequestBody CoupleEmprunt couple, BindingResult br) {
+	public Emprunt createObsolete(@Valid @RequestBody CoupleEmprunt couple, BindingResult br) {
 		if (br.hasErrors()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		}
@@ -80,24 +82,21 @@ public class EmpruntRestController {
 		return empruntSrv.getById(emprunt.getId());
 	}
 	
-//	@PostMapping("/auth")
-//	@JsonView(JsonViews.Emprunt.class)
-//	@ResponseStatus(code = HttpStatus.CREATED)
-//	public Emprunt createAuth(@Valid @RequestBody CoupleEmprunt couple, @AuthenticationPrincipal Adherent emprunteur) {
-//		if (br.hasErrors()) {
-//			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-//		}
-//		Adherent adherent = adSrv.getById(couple.getAdherentId());
-//		Livre livre = livreSrv.getById(couple.getLivreId());
-//		Emprunt emprunt = new Emprunt();
-//		emprunt.setDateDebut(LocalDate.now());
-//		emprunt.setDateFin(LocalDate.now().plusMonths(3));
-//		emprunt.setLivre(livre);
-//		emprunt.setEmprunteur(adherent);
-//		empruntSrv.createOrUpdate(emprunt);
-//		return empruntSrv.getById(emprunt.getId());
-//	}
-//	
+	@PostMapping("")
+	@JsonView(JsonViews.Emprunt.class)
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public Emprunt create(@Valid @RequestBody Livre livre, @AuthenticationPrincipal Adherent emprunteur) {
+		Emprunt emprunt = new Emprunt();
+		Livre livreEnBase = livreSrv.getById(livre.getId());
+		emprunt.setDateDebut(LocalDate.now());
+		emprunt.setDateFin(LocalDate.now().plusMonths(3));
+		emprunt.setLivre(livreEnBase);
+		emprunt.setEmprunteur(emprunteur);
+		empruntSrv.createOrUpdate(emprunt);
+		return empruntSrv.getById(emprunt.getId());
+	}
+	
+
 //	@PostMapping("")
 //	@JsonView(JsonViews.Commande.class)
 //	public Commande create(@RequestBody List<ElementPanier> panier, @AuthenticationPrincipal Compte compte) {
