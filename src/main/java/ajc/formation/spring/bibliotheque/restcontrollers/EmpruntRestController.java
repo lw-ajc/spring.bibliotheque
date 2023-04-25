@@ -63,6 +63,18 @@ public class EmpruntRestController {
 		}
 		return emprunt;
 	}
+	
+	@GetMapping("/par_adherent/{id}")
+	@JsonView(JsonViews.Emprunt.class)
+	public List<Emprunt> getByAdherent(@PathVariable Long id) {
+		List<Emprunt> emprunts = null;
+		try {
+			emprunts = empruntSrv.getByEmprunteur(id);
+		} catch (EmpruntException ex) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		return emprunts;
+	}
 
 	@PostMapping("/obsolete")
 	@JsonView(JsonViews.Emprunt.class)

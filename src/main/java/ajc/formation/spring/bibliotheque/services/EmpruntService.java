@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import ajc.formation.spring.bibliotheque.entities.Adherent;
 import ajc.formation.spring.bibliotheque.entities.Emprunt;
 import ajc.formation.spring.bibliotheque.exceptions.EmpruntException;
+import ajc.formation.spring.bibliotheque.repositories.AdherentRepository;
 import ajc.formation.spring.bibliotheque.repositories.EmpruntRepository;
 
 @Service
@@ -15,6 +16,9 @@ public class EmpruntService {
 	
 	@Autowired
 	private EmpruntRepository empruntRepo;
+	
+	@Autowired
+	private AdherentRepository adRepo;
 	
 	public List<Emprunt> getAll(){
 		return empruntRepo.findAll();
@@ -27,6 +31,13 @@ public class EmpruntService {
 		return empruntRepo.findById(id).orElseThrow(() -> {
 			throw new EmpruntException("Id d'emprunt inconnu");
 		});
+	}
+	
+	public List<Emprunt> getByEmprunteur(Long id) {
+		Adherent adherent = adRepo.findById(id).orElseThrow(() -> {
+			throw new EmpruntException("Id de l'emprunteur inconnu");
+		});
+		return empruntRepo.findByEmprunteur(adherent);
 	}
 	
 	public void delete(Emprunt emprunt) {
