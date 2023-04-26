@@ -21,11 +21,22 @@ public interface EmpruntRepository extends JpaRepository<Emprunt, Long> {
 	
 	List<Emprunt> findByLivre (Livre livre);
 	
+//	Optional<Emprunt> findOne(Emprunt emprunt);
+	
+	void delete(Emprunt emprunt);
+	
+	boolean existsByLivre(Livre livre);
+	
 	@Query("select e from Emprunt e where e.dateFin<=LocalDate.now() and e.rendu=false")
 	Optional<Emprunt> findByDateFinDepassee();
 	
 	@Query("select e from Emprunt e where e.dateFin=:date and e.rendu=true")
 	Optional<Emprunt> findByArchive(@Param("date") LocalDate date);
+	
+	//TODO vérifier que la requête ets valide
+	@Query("select e from Emprunt e where e.emprunteur.id=:emprunteurId")
+	Optional<Emprunt> findByEmprunteurId(@Param("emprunteurId") Long emprenteurId);
+	
 	
 	List<Emprunt> findByRendu (boolean rendu);
 	

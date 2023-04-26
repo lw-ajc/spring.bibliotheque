@@ -104,7 +104,7 @@ public class EmpruntRestController {
 		emprunt.setDateFin(LocalDate.now().plusMonths(3));
 		emprunt.setLivre(livreEnBase);
 		emprunt.setEmprunteur(emprunteur);
-		empruntSrv.createOrUpdate(emprunt);
+		empruntSrv.create(emprunt);
 		return empruntSrv.getById(emprunt.getId());
 	}
 	
@@ -139,6 +139,8 @@ public class EmpruntRestController {
 		if (emprunt.getLivre() != null) {
 			empruntEnBase.setLivre(emprunt.getLivre());
 		}
+		empruntEnBase.setDateFin(emprunt.getDateFin());
+		empruntEnBase.setRendu(emprunt.isRendu());
 		empruntSrv.createOrUpdate(empruntEnBase);
 		return empruntSrv.getById(empruntEnBase.getId());
 	}

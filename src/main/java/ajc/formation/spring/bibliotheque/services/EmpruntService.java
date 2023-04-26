@@ -1,5 +1,6 @@
 package ajc.formation.spring.bibliotheque.services;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import ajc.formation.spring.bibliotheque.entities.Adherent;
 import ajc.formation.spring.bibliotheque.entities.Emprunt;
+import ajc.formation.spring.bibliotheque.entities.Livre;
+import ajc.formation.spring.bibliotheque.entities.StatutLivre;
 import ajc.formation.spring.bibliotheque.exceptions.EmpruntException;
+import ajc.formation.spring.bibliotheque.exceptions.LivreException;
 import ajc.formation.spring.bibliotheque.repositories.AdherentRepository;
 import ajc.formation.spring.bibliotheque.repositories.EmpruntRepository;
 
@@ -20,9 +24,19 @@ public class EmpruntService {
 	@Autowired
 	private AdherentRepository adRepo;
 	
+	@Autowired
+	private LivreService livreService;
+	
+	
 	public List<Emprunt> getAll(){
 		return empruntRepo.findAll();
 	}
+	
+//	public Emprunt get(Emprunt emprunt) {
+//		return empruntRepo.findOne(emprunt).orElseThrow(() -> {
+//			throw new EmpruntException("Id d'emprunt inconnu");
+//		});
+//	}
 	
 	public Emprunt getById(Long id) {
 		if (id == null) {
@@ -41,7 +55,10 @@ public class EmpruntService {
 	}
 	
 	public void delete(Emprunt emprunt) {
-		deleteById(emprunt.getId());
+		Livre livre = emprunt.getLivre();
+		livre.setStatut(StatutLivre.DISPONIBLE);
+		livreService.createOrUpdate(livre);
+		empruntRepo.delete(emprunt);
 	}
 	
 	public void deleteById (Long id) {
@@ -52,6 +69,22 @@ public class EmpruntService {
 		empruntRepo.deleteByEmprunteur(emprunteur);
 	}
 	
+	public void create(Emprunt emprunt) {
+		Livre livre = emprunt.getLivre();
+		if(empruntRepo.existsByLivre(livre)) {
+			StatutLivre statut = livre.getStatut();
+			if(statut != StatutLivre.DISPONIBLE)
+				throw new EmpruntException("Impossible d'emprunter un livre déjà");
+			livre.setStatut(StatutLivre.EMPRUNTE);
+			livreService.createOrUpdate(livre);
+		}
+		empruntRepo.save(emprunt);
+	}
+	
+	public void updateDate(Emprunt emprunt, LocalDate dateFin) {
+		emprunt.setDateFin(dateFin);
+		empruntRepo.save(emprunt);
+	}
 	
 	public void createOrUpdate(Emprunt emprunt) {
 		//TODO valider un emprunt seulement si le livre est disponible
@@ -67,6 +100,16 @@ public class EmpruntService {
 //		if (emprunt.getDateDebut()!=(LocalDate.now().plusDays(21))) {
 //			throw new EmpruntException("La date date de retour ne peut pas excéder 3 semaines");
 //		}
+//		if(!empruntRepo.exists(emprunt)) {
+//			Livre livre = emprunt.getLivre();
+//			livre.setStatut(StatutLivre.EMPRUNTE);
+//			livreService.createOrUpdate(livre);
+//		}
+		
+//		empruntRepo.exists(emprunt);
+		
+		
+			
 		empruntRepo.save(emprunt);
 	}
 	
