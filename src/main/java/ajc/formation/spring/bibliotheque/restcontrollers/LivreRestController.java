@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import ajc.formation.spring.bibliotheque.entities.Emprunt;
 import ajc.formation.spring.bibliotheque.entities.Livre;
 import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
 import ajc.formation.spring.bibliotheque.services.LivreService;
@@ -43,6 +44,12 @@ public class LivreRestController {
 		Livre livre = null;
 		livre = livreServ.getById(id);
 		return livre;
+	}
+	
+	@GetMapping("/{id}/emprunt_actif")
+	@JsonView(JsonViews.Simple.class)
+	public Emprunt getEmpruntActif(@PathVariable int id) {
+		return livreServ.getEmpruntActif(livreServ.getById(id));
 	}
 	
 	@PostMapping("")

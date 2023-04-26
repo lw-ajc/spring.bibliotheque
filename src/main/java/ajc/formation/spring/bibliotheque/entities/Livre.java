@@ -72,6 +72,22 @@ public class Livre {
 		this.auteur = auteur;
 	}
 
+	public Set<Etiquette> getEtiquettes() {
+		return etiquettes;
+	}
+
+	public void setEtiquettes(Set<Etiquette> etiquettes) {
+		this.etiquettes = etiquettes;
+	}
+
+	public Set<Emprunt> getEmprunts() {
+		return emprunts;
+	}
+
+	public void setEmprunts(Set<Emprunt> emprunts) {
+		this.emprunts = emprunts;
+	}
+
 	public int getId() {
 		return id;
 	}
