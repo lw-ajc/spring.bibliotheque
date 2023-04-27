@@ -44,6 +44,12 @@ public class LivreService {
 		return getById(Integer.valueOf(id));
 	}
 	
+	public Livre getByIdWithEtiquettes(int id) {
+		return livreRepo.findByIdFectchEtiquettes(id).orElseThrow(() -> {
+			throw new LivreException("id inconnu");
+		});
+	}
+	
 	public List<Livre>getLivreWithTitreContaining(String motif){
 		return livreRepo.findByTitreContaining(motif);
 	}
