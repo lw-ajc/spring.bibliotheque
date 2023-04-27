@@ -14,17 +14,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
+import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
+
 @Table(name = "etiquette")
 @Entity
 public class Etiquette {
 	@Id
+	@JsonView(JsonViews.Simple.class)
 	private String nom;
 	@ManyToOne
 	@JoinColumn(name = "parent")
+	@JsonView(JsonViews.EtiquetteWithParentEnfants.class)
 	private Etiquette parent;
 	@OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonView(JsonViews.EtiquetteWithParentEnfants.class)
 	private Set<Etiquette> enfants = new HashSet<Etiquette>();
 	@ManyToMany(mappedBy = "etiquettes")
+	@JsonView(JsonViews.EtiquetteWithParentEnfantsLivres.class)
 	private Set<Livre> livres = new HashSet<Livre>();
 	
 

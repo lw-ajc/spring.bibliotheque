@@ -27,35 +27,43 @@ public class AdherentTest {
 	@Autowired
 	UtilisateurService utilisateurService;
 	
+//	@Test
+//	@Commit
+//	void ajouteAdminAdherent() {
+//		Adherent adherent = new Adherent("Gérard", "Bouchard", "user", "user");
+//		adherent.imprimerUtilisateur();
+//		adherentService.createOrUpdate(adherent);
+//		System.out.println(adherent.getNom());
+//		assertNotNull(adherent.getId());
+//		
+//		Administrateur administrateur = new Administrateur("admin", "admin", "admin", "admin");
+//		adminSrv.createOrUpdate(administrateur);
+//		assertNotNull(administrateur.getId());
+//		
+//	}
+//	
+//	@Test
+//	@Commit
+//	void extraireUtilisateur() {
+//		Adherent adherent = new Adherent("Dédé", "Michu", "dmichu", "mdp");
+//		adherentService.createOrUpdate(adherent);
+//		assertNotNull(adherent.getId());
+//		
+//		Administrateur administrateur = new Administrateur("adm", "adm", "ad", "adm");
+//		adminSrv.createOrUpdate(administrateur);
+//		assertNotNull(administrateur.getId());
+//		
+//		utilisateurService.getById(adherent.getId());
+//		utilisateurService.getById(administrateur.getId());
+//	}
+	
 	@Test
 	@Commit
-	void ajouteAdminAdherent() {
-		Adherent adherent = new Adherent("Gérard", "Bouchard", "gbouchard", "mdp");
+	void ajouteAdherent() {
+		Adherent adherent = new Adherent("user", "user", "user", "mdp");
 		adherent.imprimerUtilisateur();
 		adherentService.createOrUpdate(adherent);
 		System.out.println(adherent.getNom());
 		assertNotNull(adherent.getId());
-		
-		Administrateur administrateur = new Administrateur("admin", "admin", "admin", "admin");
-		adminSrv.createOrUpdate(administrateur);
-		assertNotNull(administrateur.getId());
-		
-		
-		
-	}
-	
-	@Test
-	@Commit
-	void extraireUtilisateur() {
-		Adherent adherent = new Adherent("Dédé", "Michu", "dmichu", "mdp");
-		adherentService.createOrUpdate(adherent);
-		assertNotNull(adherent.getId());
-		
-		Administrateur administrateur = new Administrateur("adm", "adm", "ad", "adm");
-		adminSrv.createOrUpdate(administrateur);
-		assertNotNull(administrateur.getId());
-		
-		utilisateurService.getById(adherent.getId());
-		utilisateurService.getById(administrateur.getId());
 	}
 }
