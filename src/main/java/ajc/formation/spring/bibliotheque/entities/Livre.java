@@ -127,7 +127,8 @@ public class Livre {
 	public void imprimer() {
 		System.out.println("======== livre =======\n" +
 				"id : " + id +
-				"\ntitre : " + titre);
+				"\ntitre : " + titre +
+				"\nstatus : " + statut);
 	}
 	
 	

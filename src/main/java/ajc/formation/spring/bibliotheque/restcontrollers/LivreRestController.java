@@ -22,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import ajc.formation.spring.bibliotheque.entities.Emprunt;
 import ajc.formation.spring.bibliotheque.entities.Livre;
 import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
+import ajc.formation.spring.bibliotheque.model.Recherche;
 import ajc.formation.spring.bibliotheque.services.LivreService;
 
 @RestController
@@ -61,6 +62,20 @@ public class LivreRestController {
 		}
 		livreServ.createOrUpdate(livre);
 		return livre;
+	}
+	
+	@PostMapping("recherche")
+	@JsonView(JsonViews.Simple.class)
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public List<Livre> create(@RequestBody Recherche recherche, BindingResult br) {
+		if (br.hasErrors()) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
+		//TODO est-ce que l'optionnal interagi avec list ??? QUe se passe-t-il si aucun enregistrement correspond ?
+		return livreServ.recherche(recherche.getMotifTitre(),
+				recherche.getMotifAuteur(),
+				recherche.getStatut(),
+				recherche.getEtiquettes());
 	}
 	
 	@PutMapping("/{id}")

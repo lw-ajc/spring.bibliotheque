@@ -2,13 +2,13 @@ package ajc.formation.spring.bibliotheque.services;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ajc.formation.spring.bibliotheque.entities.Emprunt;
 import ajc.formation.spring.bibliotheque.entities.Livre;
+import ajc.formation.spring.bibliotheque.entities.StatutLivre;
 import ajc.formation.spring.bibliotheque.exceptions.LivreException;
 import ajc.formation.spring.bibliotheque.repositories.EmpruntRepository;
 import ajc.formation.spring.bibliotheque.repositories.LivreRepository;
@@ -46,6 +46,22 @@ public class LivreService {
 	
 	public List<Livre>getLivreWithTitreContaining(String motif){
 		return livreRepo.findByTitreContaining(motif);
+	}
+	
+	public List<Livre> recherche(String motifTitre, String motifAuteur, StatutLivre statut, Set<String> etiquettes) {
+		if(etiquettes.isEmpty()) {
+			if(statut == null) {
+				return livreRepo.recherche(motifTitre, motifAuteur);
+			} else {
+				return livreRepo.recherche(motifTitre, motifAuteur, statut);
+			}
+		} else {
+			if (statut == null) {
+				return livreRepo.recherche(motifTitre, motifAuteur, etiquettes);
+			} else {
+				return livreRepo.recherche(motifTitre, motifAuteur, statut, etiquettes);
+			}
+		}
 	}
 	
 	public void delete(Livre livre) {

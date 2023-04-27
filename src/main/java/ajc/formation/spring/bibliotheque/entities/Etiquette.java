@@ -35,6 +35,8 @@ public class Etiquette {
 	public Etiquette(String nom) {
 		super();
 		this.nom = nom;
+		// l'étiquette racine est la seule à ne pas avoir de parent
+		this.parent = null;
 	}
 	
 	public Etiquette(String nom, Etiquette parent) {
