@@ -22,5 +22,13 @@ public class JsonViews {
 	public static class UtilisateurWithMdp extends Simple {
 
 	}
+	
+	public static class EtiquetteWithParentEnfants extends Simple {
+
+	}
+	
+	public static class EtiquetteWithParentEnfantsLivres extends EtiquetteWithParentEnfants {
+
+	}
 
 }
