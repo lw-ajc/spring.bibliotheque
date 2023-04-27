@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import ajc.formation.spring.bibliotheque.entities.Adherent;
+import ajc.formation.spring.bibliotheque.entities.Utilisateur;
 import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
 
 @RestController
@@ -18,7 +19,7 @@ public class AuthRestController {
 
 	@GetMapping("")
 	@JsonView(JsonViews.Simple.class)
-	public  Adherent authentication(@AuthenticationPrincipal Adherent adherent){
-		return adherent;
+	public  Utilisateur authentication(@AuthenticationPrincipal Utilisateur utilisateur){
+		return utilisateur;
 	}
 }

@@ -1,10 +1,13 @@
 package ajc.formation.spring.bibliotheque.services;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ajc.formation.spring.bibliotheque.entities.Emprunt;
 import ajc.formation.spring.bibliotheque.entities.Livre;
 import ajc.formation.spring.bibliotheque.exceptions.LivreException;
 import ajc.formation.spring.bibliotheque.repositories.EmpruntRepository;
@@ -55,6 +58,26 @@ public class LivreService {
 	
 	public void deleteAll() {
 		livreRepo.deleteAll();
+	}
+	
+	
+	
+	public Set<Emprunt> getEmpruntsById(int id){
+		Livre livre = livreRepo.findByIdFetchEmprunts(id).orElseThrow(() -> {
+			throw new LivreException("id inconnu");
+		});
+		return livre.getEmprunts();
+	}
+	
+	public Set<Emprunt> getEmprunts(Livre livre){
+		return getEmpruntsById(livre.getId());
+	}
+	
+	public Emprunt getEmpruntActif(Livre livre) {
+		//TODO lever une execption si le set est vide (pas d'emprunt actif)
+		Emprunt emprunt = getEmprunts(livre).stream().filter(emp -> !emp.isRendu()).findFirst().get();
+		return emprunt;
+		
 	}
 	
 	public void createOrUpdate(Livre livre) {
