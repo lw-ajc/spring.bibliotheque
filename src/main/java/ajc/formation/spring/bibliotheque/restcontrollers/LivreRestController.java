@@ -49,7 +49,7 @@ public class LivreRestController {
 	@GetMapping("")
 	@JsonView(JsonViews.LivreWithEtiquettes.class)
 	public List<Livre> getAll() {
-		return livreServ.getAllWithEtiquettes();
+		return livreServ.getAll();
 	}
 	
 	
