@@ -1,6 +1,8 @@
 package ajc.formation.spring.bibliotheque.restcontrollers;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +22,12 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import ajc.formation.spring.bibliotheque.entities.Emprunt;
+import ajc.formation.spring.bibliotheque.entities.Etiquette;
 import ajc.formation.spring.bibliotheque.entities.Livre;
 import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
+import ajc.formation.spring.bibliotheque.model.LivreAvecNomEtiquettes;
 import ajc.formation.spring.bibliotheque.model.Recherche;
+import ajc.formation.spring.bibliotheque.services.EtiquetteService;
 import ajc.formation.spring.bibliotheque.services.LivreService;
 
 @RestController
@@ -32,6 +37,8 @@ public class LivreRestController {
 	
 	@Autowired
 	private LivreService livreServ;
+	@Autowired
+	private EtiquetteService etiqServ;
 	
 	@GetMapping("")
 	@JsonView(JsonViews.Simple.class)
@@ -85,6 +92,23 @@ public class LivreRestController {
 		livreEnBase.setTitre(livre.getTitre());
 		livreEnBase.setAuteur(livre.getAuteur());
 		livreEnBase.setStatut(livre.getStatut());
+		livreServ.createOrUpdate(livreEnBase);
+		return livreEnBase;
+	}
+	
+	@PutMapping("/etiquettes/{id}")
+	@JsonView(JsonViews.Simple.class)
+	public Livre update(@RequestBody LivreAvecNomEtiquettes livre, @PathVariable int id) {
+		Livre livreEnBase = livreServ.getById(id);
+		livreEnBase.setTitre(livre.getTitre());
+		livreEnBase.setAuteur(livre.getAuteur());
+		livreEnBase.setStatut(livre.getStatut());
+		Set<Etiquette> etiquettes = new HashSet<Etiquette>();
+		for(String nom : livre.getEtiquettes()) {
+			Etiquette etiquette = etiqServ.getByNom(nom);
+			etiquettes.add(etiquette);
+		}
+		livreEnBase.setEtiquettes(etiquettes);
 		livreServ.createOrUpdate(livreEnBase);
 		return livreEnBase;
 	}
