@@ -47,7 +47,7 @@ public abstract class Utilisateur implements UserDetails {
 	private String password;
 	@Column(name = "role", nullable = false)
 	@Enumerated(EnumType.STRING)
-	@JsonView(JsonViews.UtilisateurWithRole.class)
+	@JsonView(JsonViews.Simple.class)
 	private Role role;
 	
 	public Utilisateur() {
