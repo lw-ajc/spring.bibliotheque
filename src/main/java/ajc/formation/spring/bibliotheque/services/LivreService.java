@@ -24,11 +24,16 @@ public class LivreService {
 	
 	@Autowired
 	private LivreRepository livreRepo;
+	
 	@Autowired
 	private EmpruntRepository empRepo;
 	
 	public List<Livre> getAll() {
 		return livreRepo.findAll();
+	}
+	
+	public List<Livre> getAllWithEtiquettes() {
+		return livreRepo.findAllWithEtiquettes();
 	}
 	
 	public Livre getById(Integer id) {

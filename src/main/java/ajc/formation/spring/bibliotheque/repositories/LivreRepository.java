@@ -18,6 +18,9 @@ public interface LivreRepository extends JpaRepository<Livre, Integer>{
 	@Query("select l from Livre l left join fetch l.etiquettes where l.id=:id")
 	Optional<Livre> findByIdFectchEtiquettes(@Param("id") int id);
 	
+	@Query("select l from Livre l left join fetch l.etiquettes")
+	List<Livre> findAllWithEtiquettes();
+	
 	@Query("select l from Livre l left join fetch l.emprunts where l.id=:id")
 	Optional<Livre> findByIdFetchEmprunts(@Param("id") int id);
 	

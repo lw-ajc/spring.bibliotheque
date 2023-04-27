@@ -30,5 +30,9 @@ public class JsonViews {
 	public static class EtiquetteWithParentEnfantsLivres extends EtiquetteWithParentEnfants {
 
 	}
+	
+	public static class LivreWithEtiquettes extends Simple {
+		
+	}
 
 }

@@ -40,19 +40,29 @@ public class LivreRestController {
 	@Autowired
 	private EtiquetteService etiqServ;
 	
+//	@GetMapping("")
+//	@JsonView(JsonViews.Simple.class)
+//	public List<Livre> getAll() {
+//		return livreServ.getAll();
+//	}
+	
 	@GetMapping("")
-	@JsonView(JsonViews.Simple.class)
+	@JsonView(JsonViews.LivreWithEtiquettes.class)
 	public List<Livre> getAll() {
-		return livreServ.getAll();
+		return livreServ.getAllWithEtiquettes();
 	}
 	
+	
+	
 	@GetMapping("/{id}")
-	@JsonView(JsonViews.Simple.class)
+	@JsonView(JsonViews.LivreWithEtiquettes.class)
 	public Livre getById(@PathVariable int id) {
 		Livre livre = null;
-		livre = livreServ.getById(id);
+		livre = livreServ.getByIdWithEtiquettes(id);
 		return livre;
 	}
+	
+	
 	
 	@GetMapping("/{id}/emprunt_actif")
 	@JsonView(JsonViews.Simple.class)

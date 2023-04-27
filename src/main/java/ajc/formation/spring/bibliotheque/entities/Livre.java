@@ -47,6 +47,7 @@ public class Livre {
 			name = "etiquette_livre",
 			joinColumns = @JoinColumn(name  ="livre_id"),
 			inverseJoinColumns = @JoinColumn(name = "etiquette_id"))
+	@JsonView(JsonViews.LivreWithEtiquettes.class)
 	Set<Etiquette> etiquettes = new HashSet<Etiquette>();
 	
 	@OneToMany(mappedBy = "livre")
