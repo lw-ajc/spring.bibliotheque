@@ -105,7 +105,7 @@ public class LivreService {
 					if (!etiquettes.isEmpty()) {
 						return livreRepo.recherche(motifAuteur, etiquettes);
 					} else {
-						return livreRepo.recherche(motifAuteur);
+						return livreRepo.recherche(motifAuteur, true);
 					}
 				}
 			} else {

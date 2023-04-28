@@ -45,8 +45,7 @@ public interface LivreRepository extends JpaRepository<Livre, Integer>{
 	List<Livre> recherche(@Param("motifTitre") String motifTitre,
 			@Param("motifAuteur") String motifAuteur);
 	
-	@Query("select l from Livre l WHERE l.titre like %:motifTitre%")
-	List<Livre> recherche(@Param("motifTitre") String motifTitre);
+	
 	
 	@Query("select l from Livre l WHERE l.titre like %:motifTitre% AND l.auteur like %:motifAuteur% AND l.statut=:statut")
 	List<Livre> recherche(@Param("motifTitre") String motifTitre,
@@ -76,6 +75,12 @@ public interface LivreRepository extends JpaRepository<Livre, Integer>{
 	@Query("select l from Livre l JOIN l.etiquettes e WHERE e.nom IN :etiquettes")
 	List<Livre> recherche(@Param("etiquettes") Set<String> etiquettes);
 
+	//TODO changer ce hack dégueulasse
+	@Query("select l from Livre l WHERE l.titre like %:motifTitre%")
+	List<Livre> recherche(@Param("motifTitre") String motifTitre);
+	//TODO changer ce hack dégueulasse
+	@Query("select l from Livre l WHERE l.auteur like %:motifAuteur% AND :auteur=TRUE")
+	List<Livre> recherche(@Param("motifAuteur") String motifAuteur, boolean auteur);
 	
 
 
