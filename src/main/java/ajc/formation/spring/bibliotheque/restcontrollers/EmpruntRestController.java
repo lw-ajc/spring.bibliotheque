@@ -27,6 +27,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import ajc.formation.spring.bibliotheque.entities.Adherent;
 import ajc.formation.spring.bibliotheque.entities.Emprunt;
 import ajc.formation.spring.bibliotheque.entities.Livre;
+import ajc.formation.spring.bibliotheque.entities.StatutLivre;
 import ajc.formation.spring.bibliotheque.exceptions.EmpruntException;
 import ajc.formation.spring.bibliotheque.jsonviews.JsonViews;
 import ajc.formation.spring.bibliotheque.model.CoupleEmprunt;
@@ -100,11 +101,13 @@ public class EmpruntRestController {
 	public Emprunt create(@Valid @RequestBody Livre livre, @AuthenticationPrincipal Adherent emprunteur) {
 		Emprunt emprunt = new Emprunt();
 		Livre livreEnBase = livreSrv.getById(livre.getId());
+		livreEnBase.setStatut(StatutLivre.EMPRUNTE);
 		emprunt.setDateDebut(LocalDate.now());
-		emprunt.setDateFin(LocalDate.now().plusMonths(3));
+		emprunt.setDateFin(LocalDate.now().plusMonths(1));
 		emprunt.setLivre(livreEnBase);
 		emprunt.setEmprunteur(emprunteur);
 		empruntSrv.create(emprunt);
+		livreSrv.createOrUpdate(livreEnBase);
 		return empruntSrv.getById(emprunt.getId());
 	}
 	

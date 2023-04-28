@@ -1,5 +1,6 @@
 package ajc.formation.spring.bibliotheque.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -59,20 +60,71 @@ public class LivreService {
 		return livreRepo.findByTitreContaining(motif);
 	}
 	
+	
 	public List<Livre> recherche(String motifTitre, String motifAuteur, StatutLivre statut, Set<String> etiquettes) {
-		if(etiquettes.isEmpty()) {
-			if(statut == null) {
-				return livreRepo.recherche(motifTitre, motifAuteur);
+		//TODO changer cette fonction hideuse
+		if(!motifTitre.isEmpty()) {
+			if(!motifAuteur.isEmpty()) {
+				if(statut != null) {
+					if(!etiquettes.isEmpty()) {
+						return livreRepo.recherche(motifTitre, motifAuteur, statut, etiquettes);
+					} else {
+						return livreRepo.recherche(motifTitre, motifAuteur, statut);
+					}
+				} else {
+					if (!etiquettes.isEmpty()) {
+						return livreRepo.recherche(motifTitre, motifAuteur, etiquettes);
+					} else {
+						return livreRepo.recherche(motifTitre, motifAuteur);
+					}
+				}
 			} else {
-				return livreRepo.recherche(motifTitre, motifAuteur, statut);
+				if(statut != null) {
+					if(!etiquettes.isEmpty()) {
+						return livreRepo.recherche(motifTitre, statut, etiquettes);
+					} else {
+						return livreRepo.recherche(motifTitre, statut);
+					}
+				} else {
+					if (!etiquettes.isEmpty()) {
+						return livreRepo.recherche(motifTitre, etiquettes);
+					} else {
+						return livreRepo.recherche(motifTitre);
+					}
+				}
 			}
 		} else {
-			if (statut == null) {
-				return livreRepo.recherche(motifTitre, motifAuteur, etiquettes);
+			if(!motifAuteur.isEmpty()) {
+				if(statut != null) {
+					if(!etiquettes.isEmpty()) {
+						return livreRepo.recherche(motifAuteur, statut, etiquettes);
+					} else {
+						return livreRepo.recherche(motifAuteur, statut);
+					}
+				} else {
+					if (!etiquettes.isEmpty()) {
+						return livreRepo.recherche(motifAuteur, etiquettes);
+					} else {
+						return livreRepo.recherche(motifAuteur);
+					}
+				}
 			} else {
-				return livreRepo.recherche(motifTitre, motifAuteur, statut, etiquettes);
+				if(statut != null) {
+					if(!etiquettes.isEmpty()) {
+						return livreRepo.recherche(statut, etiquettes);
+					} else {
+						return livreRepo.recherche(statut);
+					}
+				} else {
+					if (!etiquettes.isEmpty()) {
+						return livreRepo.recherche(etiquettes);
+					} else {
+						return livreRepo.findAll();
+					}
+				}
 			}
 		}
+	// fin de la fonction
 	}
 	
 	public void delete(Livre livre) {

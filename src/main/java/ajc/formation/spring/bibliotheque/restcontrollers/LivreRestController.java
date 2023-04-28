@@ -63,7 +63,6 @@ public class LivreRestController {
 	}
 	
 	
-	
 	@GetMapping("/{id}/emprunt_actif")
 	@JsonView(JsonViews.Simple.class)
 	public Emprunt getEmpruntActif(@PathVariable int id) {
